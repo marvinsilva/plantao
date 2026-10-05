@@ -5,12 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Escala de Plantão e Férias - Disfagia Adulto</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Tailwind CSS para estilização -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FullCalendar CSS & JS -->
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
 </head>
 <body class="bg-slate-100 font-sans text-slate-800">
+
+  <!-- Mensagem de Aviso/Conexão -->
+  <div id="statusConexao" class="hidden bg-amber-500 text-white text-center py-2 text-sm font-semibold px-4 shadow-inner">
+    A carregar dados do Firebase...
+  </div>
 
   <!-- Cabeçalho -->
   <header class="bg-indigo-700 text-white shadow-md p-4">
@@ -21,10 +26,10 @@
       </div>
       <div class="flex gap-2">
         <button id="btnImportarDados" class="bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow transition">
-          📥 Carregar Planilhas (2026/2027)
+          📥 Carregar Dados das Planilhas
         </button>
         <button id="btnNovoRegistro" class="bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow transition">
-          + Adicionar Registo
+          + Novo Registo
         </button>
       </div>
     </div>
@@ -44,8 +49,6 @@
             <label class="block text-sm font-medium text-slate-600 mb-1">Categoria</label>
             <select id="filtroCategoria" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 focus:ring-2 focus:ring-indigo-500">
               <option value="TODAS">Todas as Categorias</option>
-              <option value="Precep/Superv">Preceptoria / Supervisão</option>
-              <option value="R2/R1">Residentes (R1 / R2 / Outros)</option>
             </select>
           </div>
 
@@ -66,7 +69,7 @@
           <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-blue-500 inline-block"></span> <span><strong>F</strong> - Folga</span></div>
           <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-amber-500 inline-block"></span> <span>Férias</span></div>
           <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-purple-500 inline-block"></span> <span>Afastamento / Evento</span></div>
-          <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-rose-500 inline-block"></span> <span>Feriado</span></div>
+          <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-rose-200 border border-rose-400 inline-block"></span> <span>Feriado (Automático)</span></div>
         </div>
       </div>
 
@@ -87,31 +90,26 @@
 
   </main>
 
-  <!-- Modal do Form (Adicionar/Editar) -->
+  <!-- Modal do Formulário -->
   <div id="modalForm" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative">
       <h3 class="text-xl font-bold mb-4 text-slate-800" id="modalTitulo">Marcar Registo na Escala</h3>
       
       <form id="formEscala" class="space-y-4">
         <div>
-          <label class="block text-sm font-medium mb-1">Profissional *</label>
-          <select id="inputPessoa" required class="w-full border border-slate-300 rounded-lg p-2.5">
-            <option value="">Selecione...</option>
-            <optgroup label="Preceptoria / Supervisão">
-              <option value="Gabriela">Gabriela</option>
-              <option value="Lorenza">Lorenza</option>
-              <option value="Fabiane">Fabiane</option>
-              <option value="Luísa">Luísa</option>
-              <option value="Mariana">Mariana</option>
-            </optgroup>
-            <optgroup label="Residentes (R1 / R2 / Outros)">
-              <option value="Geórgia">Geórgia</option>
-              <option value="Bruna">Bruna</option>
-              <option value="Marvin">Marvin</option>
-              <option value="R1 Mariana">R1 Mariana</option>
-              <option value="R1 Roberta">R1 Roberta</option>
-            </optgroup>
-          </select>
+          <label class="block text-sm font-medium mb-1">Nome do Profissional *</label>
+          <input type="text" id="inputPessoa" list="listaPessoas" required placeholder="Digite ou selecione o nome..." class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500">
+          <datalist id="listaPessoas">
+            <!-- Nomes cadastrados são inseridos dinamicamente -->
+          </datalist>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Categoria (Opcional)</label>
+          <input type="text" id="inputCategoria" list="listaCategorias" placeholder="Ex: Preceptoria, Residente, Fonoaudiólogo..." class="w-full border border-slate-300 rounded-lg p-2.5">
+          <datalist id="listaCategorias">
+            <!-- Categorias dinâmicas -->
+          </datalist>
         </div>
 
         <div>
@@ -121,7 +119,6 @@
             <option value="FOLGA">Folga (F)</option>
             <option value="FERIAS">Férias</option>
             <option value="AFASTAMENTO">Afastamento / Evento</option>
-            <option value="FERIADO">Feriado</option>
           </select>
         </div>
 
@@ -149,7 +146,7 @@
             <button type="button" id="btnFecharModal" class="px-4 py-2 border rounded-lg hover:bg-slate-100">
               Cancelar
             </button>
-            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-lg">
+            <button type="submit" id="btnSubmitForm" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-lg transition disabled:opacity-50">
               Guardar
             </button>
           </div>
