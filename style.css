@@ -1,0 +1,26 @@
+/* Ajustes finos do FullCalendar */
+.fc-event {
+  cursor: pointer;
+  border: none !important;
+  font-size: 0.825rem;
+  padding: 2px 4px;
+}
+
+.fc-daygrid-day-number {
+  font-weight: 600;
+  color: #334155;
+}
+
+.fc-header-toolbar {
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.fc-button-primary {
+  background-color: #4f46e5 !important;
+  border-color: #4f46e5 !important;
+}
+
+.fc-button-primary:hover {
+  background-color: #4338ca !important;
+}
