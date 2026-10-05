@@ -1,9 +1,18 @@
-/* Ajustes finos do FullCalendar */
+/* Estilização do FullCalendar */
 .fc-event {
   cursor: pointer;
   border: none !important;
   font-size: 0.825rem;
   padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.fc-event-feriado-auto {
+  background-color: #ffe4e6 !important;
+  color: #9f1239 !important;
+  font-weight: 600;
+  border-left: 3px solid #f43f5e !important;
+  cursor: default;
 }
 
 .fc-daygrid-day-number {
