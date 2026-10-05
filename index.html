@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escala de Plantão e Férias - Disfagia Adulto</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Tailwind CSS para Estilização Rápida -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FullCalendar CSS e JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+</head>
+<body class="bg-slate-100 font-sans text-slate-800">
+
+  <!-- Cabeçalho -->
+  <header class="bg-indigo-700 text-white shadow-md p-4">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
+      <div>
+        <h1 class="text-2xl font-bold">Escala Disfagia Adulto</h1>
+        <p class="text-indigo-200 text-sm">Gestão Integrada de Plantões, Folgas e Férias</p>
+      </div>
+      <button id="btnNovoRegistro" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-4 py-2 rounded-lg shadow transition">
+        + Adicionar Registo
+      </button>
+    </div>
+  </header>
+
+  <!-- Filtros e Resumo -->
+  <main class="max-w-7xl mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+    <!-- Painel Lateral: Filtros e Contadores -->
+    <aside class="lg:col-span-1 space-y-6">
+      
+      <!-- Card Filtros -->
+      <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+        <h2 class="text-lg font-bold mb-4 text-slate-700 border-b pb-2">Filtros</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-1">Categoria</label>
+            <select id="filtroCategoria" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 focus:ring-2 focus:ring-indigo-500">
+              <option value="TODAS">Todas as Categorias</option>
+              <option value="Precep/Superv">Preceptoria / Supervisão</option>
+              <option value="R2/R1">Residentes (R1 / R2)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-1">Profissional</label>
+            <select id="filtroPessoa" class="w-full border border-slate-300 rounded-lg p-2.5 bg-slate-50 focus:ring-2 focus:ring-indigo-500">
+              <option value="TODAS">Todos os Profissionais</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Legenda -->
+      <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+        <h2 class="text-lg font-bold mb-3 text-slate-700 border-b pb-2">Legendas</h2>
+        <div class="space-y-2 text-sm">
+          <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-emerald-500 inline-block"></span> <span><strong>X</strong> - Plantão</span></div>
+          <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-blue-500 inline-block"></span> <span><strong>F</strong> - Folga</span></div>
+          <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-amber-500 inline-block"></span> <span>Férias</span></div>
+          <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-purple-500 inline-block"></span> <span>Afastamento / Evento</span></div>
+          <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-rose-500 inline-block"></span> <span>Feriado</span></div>
+        </div>
+      </div>
+
+      <!-- Card Contador do Mês -->
+      <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+        <h2 class="text-lg font-bold mb-3 text-slate-700 border-b pb-2">Total de Plantões (Mês)</h2>
+        <div id="listaContadores" class="space-y-2 text-sm text-slate-600">
+          <!-- Gerado dinamicamente via JS -->
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- Área Principal do Calendário -->
+    <section class="lg:col-span-3 bg-white p-4 md:p-6 rounded-xl shadow-sm border border-slate-200">
+      <div id="calendar"></div>
+    </section>
+
+  </main>
+
+  <!-- Modal para Criar/Editar Registo -->
+  <div id="modalForm" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative">
+      <h3 class="text-xl font-bold mb-4 text-slate-800" id="modalTitulo">Marcar Registo na Escala</h3>
+      
+      <form id="formEscala" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Profissional *</label>
+          <select id="inputPessoa" required class="w-full border border-slate-300 rounded-lg p-2.5">
+            <option value="">Selecione...</option>
+            <optgroup label="Preceptoria / Supervisão">
+              <option value="Gabriela">Gabriela</option>
+              <option value="Lorenza">Lorenza</option>
+              <option value="Fabiane">Fabiane</option>
+              <option value="Luísa">Luísa</option>
+              <option value="Mariana">Mariana</option>
+            </optgroup>
+            <optgroup label="Residentes (R1 / R2 / Outros)">
+              <option value="Geórgia">Geórgia</option>
+              <option value="Bruna">Bruna</option>
+              <option value="Marvin">Marvin</option>
+              <option value="R1 Mariana">R1 Mariana</option>
+              <option value="R1 Roberta">R1 Roberta</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Tipo de Registo *</label>
+          <select id="inputTipo" required class="w-full border border-slate-300 rounded-lg p-2.5">
+            <option value="PLANTAO">Plantão (X)</option>
+            <option value="FOLGA">Folga (F)</option>
+            <option value="FERIAS">Férias</option>
+            <option value="AFASTAMENTO">Afastamento / Evento</option>
+            <option value="FERIADO">Feriado</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Data *</label>
+            <input type="date" id="inputData" required class="w-full border border-slate-300 rounded-lg p-2.5">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Carga Horária (h)</label>
+            <input type="number" id="inputCH" value="2" class="w-full border border-slate-300 rounded-lg p-2.5">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Observações / Detalhes</label>
+          <textarea id="inputObs" rows="2" placeholder="Ex: Curso USG, Troca de plantão..." class="w-full border border-slate-300 rounded-lg p-2.5"></textarea>
+        </div>
+
+        <div class="flex justify-between items-center pt-4 border-t">
+          <button type="button" id="btnExcluir" class="bg-rose-500 hover:bg-rose-600 text-white px-3 py-2 rounded-lg text-sm hidden">
+            Eliminar
+          </button>
+          <div class="flex gap-2 ml-auto">
+            <button type="button" id="btnFecharModal" class="px-4 py-2 border rounded-lg hover:bg-slate-100">
+              Cancelar
+            </button>
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-lg">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Ficheiro JavaScript Principal -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
