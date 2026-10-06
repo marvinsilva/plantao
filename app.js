@@ -3,7 +3,6 @@ import {
   getFirestore, collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc, writeBatch 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyCfXiW_MVh985LU30_6dpSoKtTxqhz38ho",
   authDomain: "plantao-fono.firebaseapp.com",
@@ -19,7 +18,7 @@ const db = getFirestore(app);
 let calendar;
 let todosEventos = [];
 const feriadosAutoMap = new Map();
-const anosCarregados = new Set();
+const anosCarregados = new Set(); // Evita recarregar a API de feriados repetidamente
 let idEdicaoAtual = null;
 
 const CORES = {
@@ -64,8 +63,6 @@ function salvarCacheLocal() {
 
 function inicializarCalendario() {
   const calendarEl = document.getElementById('calendar');
-  if (!calendarEl) return;
-
   calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     locale: 'pt-br',
@@ -99,8 +96,7 @@ function escutarFirebase() {
       aplicarFiltrosEAtualizar();
       atualizarTabelaFeriadoes();
     },
-    (err) => {
-      console.warn("Aviso Firebase:", err);
+    () => {
       aplicarFiltrosEAtualizar();
       atualizarTabelaFeriadoes();
     }
@@ -178,6 +174,7 @@ function aplicarFiltrosEAtualizar() {
 
   const feriadosPorData = new Map();
 
+  // 1. Feriados automáticos da API
   feriadosAutoMap.forEach((feriado, date) => {
     feriadosPorData.set(date, feriado);
   });
@@ -185,6 +182,7 @@ function aplicarFiltrosEAtualizar() {
   const fcEvents = [];
   const chavesPessoasVistas = new Set();
 
+  // 2. Filtrar e deduplicar os registros do banco de dados
   todosEventos.forEach(ev => {
     if (!ev.data) return;
 
@@ -230,6 +228,7 @@ function aplicarFiltrosEAtualizar() {
   const todosEventosCalendario = [...fcEvents, ...listaFeriadosUnicos];
 
   if (calendar) {
+    // REMOVE TODAS AS FONTES ANTERIORES PARA EVITAR MULTIPLICAÇÃO AO NAVEGAR
     calendar.removeAllEventSources();
     calendar.addEventSource(todosEventosCalendario);
   }
@@ -275,7 +274,7 @@ function atualizarContadores() {
   Object.entries(contagem).sort((a, b) => b[1] - a[1]).forEach(([nome, qtd]) => {
     const item = document.createElement('div');
     item.className = 'flex justify-between items-center py-1 border-b border-slate-100';
-    item.innerHTML = `<span class="font-medium text-slate-700">${nome}</span> <span class="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full text-xs">${qtd} plantões</span>`;
+    item.innerHTML = `<span class="font-medium">${nome}</span> <span class="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full text-xs">${qtd} plantões</span>`;
     container.appendChild(item);
   });
 }
@@ -349,21 +348,6 @@ function formatarDatas(datas) {
   return `${dInicio[2]}/${dInicio[1]} a ${dFim[2]}/${dFim[1]}`;
 }
 
-function gerarIntervaloDatas(dataInicioStr, dataFimStr) {
-  const lista = [];
-  let atual = new Date(dataInicioStr + 'T00:00:00');
-  const fim = new Date(dataFimStr + 'T00:00:00');
-
-  while (atual <= fim) {
-    const ano = atual.getFullYear();
-    const mes = String(atual.getMonth() + 1).padStart(2, '0');
-    const dia = String(atual.getDate()).padStart(2, '0');
-    lista.push(`${ano}-${mes}-${dia}`);
-    atual.setDate(atual.getDate() + 1);
-  }
-  return lista;
-}
-
 function mostrarToast(mensagem) {
   const toast = document.getElementById('toastSucesso');
   const msgEl = document.getElementById('toastMensagem');
@@ -380,60 +364,45 @@ const btnSubmit = document.getElementById('btnSubmitForm');
 
 function abrirModalNovaData(dataStr) {
   idEdicaoAtual = null;
-  if (form) form.reset();
-  
-  const inputData = document.getElementById('inputData');
-  if (inputData) inputData.value = dataStr;
-
-  const inputDataFim = document.getElementById('inputDataFim');
-  if (inputDataFim) inputDataFim.value = '';
-
-  const tit = document.getElementById('modalTitulo');
-  if (tit) tit.textContent = 'Marcar Registro na Escala';
-  
-  const btnExcluir = document.getElementById('btnExcluir');
-  if (btnExcluir) btnExcluir.classList.add('hidden');
-  
+  form.reset();
+  document.getElementById('inputData').value = dataStr;
+  document.getElementById('modalTitulo').textContent = 'Marcar Registo na Escala';
+  document.getElementById('btnExcluir').classList.add('hidden');
   if (btnSubmit) {
     btnSubmit.disabled = false;
     btnSubmit.textContent = 'Guardar';
   }
-  if (modal) modal.classList.remove('hidden');
+  modal.classList.remove('hidden');
 }
 
 function abrirModalEdicao(fcEvent) {
   idEdicaoAtual = fcEvent.id;
   const dados = fcEvent.extendedProps;
 
-  if (document.getElementById('inputPessoa')) document.getElementById('inputPessoa').value = dados.pessoa || '';
-  if (document.getElementById('inputCategoria')) document.getElementById('inputCategoria').value = dados.categoria || '';
-  if (document.getElementById('inputTipo')) document.getElementById('inputTipo').value = dados.tipo || 'PLANTAO';
-  if (document.getElementById('inputData')) document.getElementById('inputData').value = dados.data || '';
-  if (document.getElementById('inputDataFim')) document.getElementById('inputDataFim').value = '';
-  if (document.getElementById('inputCH')) document.getElementById('inputCH').value = dados.cargaHoraria || 12;
-  if (document.getElementById('inputObs')) document.getElementById('inputObs').value = dados.observacao || '';
+  document.getElementById('inputPessoa').value = dados.pessoa || '';
+  document.getElementById('inputCategoria').value = dados.categoria || '';
+  document.getElementById('inputTipo').value = dados.tipo || 'PLANTAO';
+  document.getElementById('inputData').value = dados.data || '';
+  document.getElementById('inputCH').value = dados.cargaHoraria || 2;
+  document.getElementById('inputObs').value = dados.observacao || '';
 
-  const tit = document.getElementById('modalTitulo');
-  if (tit) tit.textContent = 'Editar Registro';
-  
-  const btnExcluir = document.getElementById('btnExcluir');
-  if (btnExcluir) btnExcluir.classList.remove('hidden');
-  
+  document.getElementById('modalTitulo').textContent = 'Editar Registo';
+  document.getElementById('btnExcluir').classList.remove('hidden');
   if (btnSubmit) {
     btnSubmit.disabled = false;
     btnSubmit.textContent = 'Guardar';
   }
-  if (modal) modal.classList.remove('hidden');
+  modal.classList.remove('hidden');
 }
 
-window.fecharModal = function fecharModal() {
-  if (modal) modal.classList.add('hidden');
-  if (form) form.reset();
+function fecharModal() {
+  modal.classList.add('hidden');
+  form.reset();
   if (btnSubmit) {
     btnSubmit.disabled = false;
     btnSubmit.textContent = 'Guardar';
   }
-};
+}
 
 function configurarEventosUI() {
   const btnTabCalendario = document.getElementById('btnTabCalendario');
@@ -441,155 +410,101 @@ function configurarEventosUI() {
   const visaoCalendario = document.getElementById('visaoCalendario');
   const visaoFeriadoes = document.getElementById('visaoFeriadoes');
 
-  if (btnTabCalendario) {
+  if (btnTabCalendario && btnTabFeriadoes) {
     btnTabCalendario.addEventListener('click', () => {
-      if (visaoCalendario) visaoCalendario.classList.remove('hidden');
-      if (visaoFeriadoes) visaoFeriadoes.classList.add('hidden');
-      
-      btnTabCalendario.className = 'py-3 px-5 font-bold text-emerald-600 border-b-2 border-emerald-600 text-sm transition flex items-center gap-2';
-      if (btnTabFeriadoes) {
-        btnTabFeriadoes.className = 'py-3 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
-      }
+      visaoCalendario.classList.remove('hidden');
+      visaoFeriadoes.classList.add('hidden');
+      btnTabCalendario.className = 'py-2.5 px-5 font-bold text-emerald-600 border-b-2 border-emerald-600 text-sm transition flex items-center gap-2';
+      btnTabFeriadoes.className = 'py-2.5 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
       if (calendar) calendar.render();
     });
-  }
 
-  if (btnTabFeriadoes) {
     btnTabFeriadoes.addEventListener('click', () => {
-      if (visaoCalendario) visaoCalendario.classList.add('hidden');
-      if (visaoFeriadoes) visaoFeriadoes.classList.remove('hidden');
-
-      btnTabFeriadoes.className = 'py-3 px-5 font-bold text-emerald-600 border-b-2 border-emerald-600 text-sm transition flex items-center gap-2';
-      if (btnTabCalendario) {
-        btnTabCalendario.className = 'py-3 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
-      }
+      visaoCalendario.classList.add('hidden');
+      visaoFeriadoes.classList.remove('hidden');
+      btnTabFeriadoes.className = 'py-2.5 px-5 font-bold text-emerald-600 border-b-2 border-emerald-600 text-sm transition flex items-center gap-2';
+      btnTabCalendario.className = 'py-2.5 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
       atualizarTabelaFeriadoes();
     });
   }
 
-  const btnNovo = document.getElementById('btnNovoRegistro');
-  if (btnNovo) {
-    btnNovo.addEventListener('click', () => abrirModalNovaData(new Date().toISOString().split('T')[0]));
-  }
+  document.getElementById('btnNovoRegistro').addEventListener('click', () => abrirModalNovaData(new Date().toISOString().split('T')[0]));
+  document.getElementById('btnFecharModal').addEventListener('click', fecharModal);
 
-  const btnFechar = document.getElementById('btnFecharModal');
-  if (btnFechar) btnFechar.addEventListener('click', window.fecharModal);
+  document.getElementById('filtroCategoria').addEventListener('change', aplicarFiltrosEAtualizar);
+  document.getElementById('filtroPessoa').addEventListener('change', aplicarFiltrosEAtualizar);
 
-  const filtroCat = document.getElementById('filtroCategoria');
-  if (filtroCat) filtroCat.addEventListener('change', aplicarFiltrosEAtualizar);
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-  const filtroPess = document.getElementById('filtroPessoa');
-  if (filtroPess) filtroPess.addEventListener('change', aplicarFiltrosEAtualizar);
+    const pessoaVal = document.getElementById('inputPessoa').value.trim();
+    const dataVal = document.getElementById('inputData').value;
+    if (!pessoaVal || !dataVal) {
+      alert('Por favor, preencha o nome do profissional e a data.');
+      return;
+    }
 
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    const payload = {
+      pessoa: pessoaVal,
+      categoria: document.getElementById('inputCategoria').value.trim() || 'Geral',
+      tipo: document.getElementById('inputTipo').value,
+      data: dataVal,
+      cargaHoraria: Number(document.getElementById('inputCH').value) || 2,
+      observacao: document.getElementById('inputObs').value.trim(),
+      atualizadoEm: new Date().toISOString()
+    };
 
-      const pessoaVal = document.getElementById('inputPessoa').value.trim();
-      const dataInicioVal = document.getElementById('inputData').value;
-      const dataFimInput = document.getElementById('inputDataFim');
-      const dataFimVal = dataFimInput ? dataFimInput.value : '';
+    const isEdit = Boolean(idEdicaoAtual);
+    const targetId = idEdicaoAtual;
 
-      if (!pessoaVal || !dataInicioVal) {
-        alert('Por favor, preencha o nome do profissional e a data.');
-        return;
-      }
+    fecharModal();
+    mostrarToast(isEdit ? '✅ Registo atualizado com sucesso!' : '✅ Plantão marcado com sucesso!');
 
-      let arrayDatas = [dataInicioVal];
-      if (dataFimVal && dataFimVal >= dataInicioVal) {
-        arrayDatas = gerarIntervaloDatas(dataInicioVal, dataFimVal);
-      }
+    if (isEdit) {
+      const idx = todosEventos.findIndex(x => x.id === targetId);
+      if (idx !== -1) todosEventos[idx] = { id: targetId, ...payload };
+    } else {
+      const tempId = 'temp-' + Date.now();
+      todosEventos.push({ id: tempId, ...payload });
+    }
 
-      const tipoVal = document.getElementById('inputTipo').value;
-      const catVal = document.getElementById('inputCategoria').value.trim() || 'Fonoaudiologia';
-      const chVal = Number(document.getElementById('inputCH').value) || 12;
-      const obsVal = document.getElementById('inputObs').value.trim();
+    salvarCacheLocal();
+    aplicarFiltrosEAtualizar();
+    atualizarListasDinamicas();
+    atualizarTabelaFeriadoes();
 
-      const isEdit = Boolean(idEdicaoAtual);
-      const targetId = idEdicaoAtual;
+    if (isEdit && !targetId.startsWith('temp-')) {
+      updateDoc(doc(db, 'escalas', targetId), payload).catch(err => console.error("Erro Firebase:", err));
+    } else {
+      addDoc(collection(db, 'escalas'), payload).then(docRef => {
+        console.log("Salvo no Firebase:", docRef.id);
+      }).catch(err => console.error("Erro Firebase:", err));
+    }
+  });
 
-      window.fecharModal();
-      
-      const msgSucesso = arrayDatas.length > 1 
-        ? `✅ ${arrayDatas.length} dias registrados com sucesso!` 
-        : (isEdit ? '✅ Registro atualizado!' : '✅ Registro efetuado!');
-      
-      mostrarToast(msgSucesso);
+  document.getElementById('btnExcluir').addEventListener('click', async () => {
+    if (confirm('Deseja realmente eliminar este registo?')) {
+      const idParaRemover = idEdicaoAtual;
+      todosEventos = todosEventos.filter(x => x.id !== idParaRemover);
+      salvarCacheLocal();
+      aplicarFiltrosEAtualizar();
+      atualizarTabelaFeriadoes();
+      fecharModal();
+      mostrarToast('🗑️ Registo eliminado com sucesso.');
 
-      if (isEdit && arrayDatas.length === 1) {
-        const payload = {
-          pessoa: pessoaVal,
-          categoria: catVal,
-          tipo: tipoVal,
-          data: dataInicioVal,
-          cargaHoraria: chVal,
-          observacao: obsVal,
-          atualizadoEm: new Date().toISOString()
-        };
-
-        const idx = todosEventos.findIndex(x => x.id === targetId);
-        if (idx !== -1) todosEventos[idx] = { id: targetId, ...payload };
-
-        salvarCacheLocal();
-        aplicarFiltrosEAtualizar();
-        atualizarListasDinamicas();
-
-        if (!targetId.startsWith('temp-')) {
-          updateDoc(doc(db, 'escalas', targetId)).catch(err => console.error(err));
+      try {
+        if (idParaRemover && !idParaRemover.startsWith('temp-')) {
+          await deleteDoc(doc(db, 'escalas', idParaRemover));
         }
-      } else {
-        for (const dStr of arrayDatas) {
-          const payload = {
-            pessoa: pessoaVal,
-            categoria: catVal,
-            tipo: tipoVal,
-            data: dStr,
-            cargaHoraria: chVal,
-            observacao: obsVal,
-            atualizadoEm: new Date().toISOString()
-          };
+      } catch (e) {}
+    }
+  });
 
-          const tempId = 'temp-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4);
-          todosEventos.push({ id: tempId, ...payload });
-
-          addDoc(collection(db, 'escalas'), payload).catch(err => console.error(err));
-        }
-
-        salvarCacheLocal();
-        aplicarFiltrosEAtualizar();
-        atualizarListasDinamicas();
-      }
-    });
-  }
-
-  const btnExcluir = document.getElementById('btnExcluir');
-  if (btnExcluir) {
-    btnExcluir.addEventListener('click', async () => {
-      if (confirm('Deseja realmente eliminar este registro?')) {
-        const idParaRemover = idEdicaoAtual;
-        todosEventos = todosEventos.filter(x => x.id !== idParaRemover);
-        salvarCacheLocal();
-        aplicarFiltrosEAtualizar();
-        atualizarTabelaFeriadoes();
-        window.fecharModal();
-        mostrarToast('🗑️ Registro eliminado com sucesso.');
-
-        try {
-          if (idParaRemover && !idParaRemover.startsWith('temp-')) {
-            await deleteDoc(doc(db, 'escalas', idParaRemover));
-          }
-        } catch (e) {}
-      }
-    });
-  }
-
-  const btnImp = document.getElementById('btnImportarDados');
-  if (btnImp) btnImp.addEventListener('click', importarDadosIniciais);
+  document.getElementById('btnImportarDados').addEventListener('click', importarDadosIniciais);
 }
 
 async function importarDadosIniciais() {
   const btn = document.getElementById('btnImportarDados');
-  if (!btn) return;
   btn.disabled = true;
   btn.textContent = '⏳ A importar...';
 
