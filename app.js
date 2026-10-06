@@ -17,7 +17,7 @@ const db = getFirestore(app);
 
 let calendar;
 let todosEventos = [];
-let feriadosAuto = [];
+const feriadosAutoMap = new Map(); // Mapa único por data para evitar qualquer duplicidade
 let idEdicaoAtual = null;
 
 const CORES = {
@@ -91,33 +91,39 @@ function escutarFirebase() {
     },
     (error) => {
       console.error("Erro no Firebase onSnapshot:", error);
-      if (error.code === 'permission-denied') {
-        alert("Atenção: O Firebase bloqueou a sincronização! Verifique as Regras do Firestore no console do Firebase.");
-      }
       aplicarFiltrosEAtualizar();
     }
   );
 }
 
+// Busca feriados nacionais da API e garante que cada data receba apenas 1 entrada
 async function carregarFeriadosNacionais(ano) {
   try {
     const res = await fetch(`https://brasilapi.com.br/api/feriados/v1/${ano}`);
     if (res.ok) {
       const data = await res.json();
+      let alterou = false;
+      
       data.forEach(f => {
-        if (!feriadosAuto.some(e => e.start === f.date && e.title === f.name)) {
-          feriadosAuto.push({
+        if (!feriadosAutoMap.has(f.date)) {
+          feriadosAutoMap.set(f.date, {
             id: 'feriado-auto-' + f.date,
             title: `🎉 ${f.name}`,
             start: f.date,
             classNames: ['fc-event-feriado-auto'],
             isFeriadoAuto: true
           });
+          alterou = true;
         }
       });
-      aplicarFiltrosEAtualizar();
+      
+      if (alterou) {
+        aplicarFiltrosEAtualizar();
+      }
     }
-  } catch (err) {}
+  } catch (err) {
+    console.warn("Erro ao carregar feriados automáticos:", err);
+  }
 }
 
 function atualizarListasDinamicas() {
@@ -179,9 +185,11 @@ function aplicarFiltrosEAtualizar() {
     extendedProps: ev
   }));
 
+  const listaFeriados = Array.from(feriadosAutoMap.values());
+
   if (calendar) {
     calendar.removeAllEvents();
-    calendar.addEventSource([...fcEvents, ...feriadosAuto]);
+    calendar.addEventSource([...fcEvents, ...listaFeriados]);
   }
   atualizarContadores();
 }
@@ -317,11 +325,9 @@ function configurarEventosUI() {
     const isEdit = Boolean(idEdicaoAtual);
     const targetId = idEdicaoAtual;
 
-    // 1. FECHA A TELA E MOSTRA A MENSAGEM INSTANTANEAMENTE
     fecharModal();
     mostrarToast(isEdit ? '✅ Registo atualizado com sucesso!' : '✅ Plantão marcado com sucesso!');
 
-    // 2. SALVA LOCALMENTE E ATUALIZA O CALENDÁRIO NA HORA
     if (isEdit) {
       const idx = todosEventos.findIndex(x => x.id === targetId);
       if (idx !== -1) todosEventos[idx] = { id: targetId, ...payload };
@@ -334,19 +340,12 @@ function configurarEventosUI() {
     aplicarFiltrosEAtualizar();
     atualizarListasDinamicas();
 
-    // 3. ENVIA PARA O FIREBASE EM SEGUNDO PLANO PARA OUTROS DISPOSITIVOS
     if (isEdit && !targetId.startsWith('temp-')) {
-      updateDoc(doc(db, 'escalas', targetId), payload).catch(err => {
-        console.error("Erro ao sincronizar com Firebase:", err);
-        alert("Atenção: O Firebase recusou salvar na nuvem! Verifique as Regras do Firestore.");
-      });
+      updateDoc(doc(db, 'escalas', targetId), payload).catch(err => console.error("Erro Firebase:", err));
     } else {
       addDoc(collection(db, 'escalas'), payload).then(docRef => {
-        console.log("Enviado com sucesso ao Firebase com ID:", docRef.id);
-      }).catch(err => {
-        console.error("Erro ao salvar no Firebase:", err);
-        alert("Atenção: O plantão foi salvo só neste aparelho. O Firebase recusou a sincronização com outros dispositivos! Erro: " + err.message);
-      });
+        console.log("Salvo no Firebase:", docRef.id);
+      }).catch(err => console.error("Erro Firebase:", err));
     }
   });
 
