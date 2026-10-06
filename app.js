@@ -18,6 +18,7 @@ const db = getFirestore(app);
 let calendar;
 let todosEventos = [];
 const feriadosAutoMap = new Map();
+const anosCarregados = new Set();
 let idEdicaoAtual = null;
 
 const CORES = {
@@ -47,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
   inicializarCalendario();
   escutarFirebase();
   configurarEventosUI();
-  carregarFeriadosNacionais(new Date().getFullYear());
 });
 
 function carregarCacheLocal() {
@@ -63,6 +63,8 @@ function salvarCacheLocal() {
 
 function inicializarCalendario() {
   const calendarEl = document.getElementById('calendar');
+  if (!calendarEl) return;
+
   calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     locale: 'pt-br',
@@ -96,7 +98,7 @@ function escutarFirebase() {
       aplicarFiltrosEAtualizar();
       atualizarTabelaFeriadoes();
     },
-    (error) => {
+    () => {
       aplicarFiltrosEAtualizar();
       atualizarTabelaFeriadoes();
     }
@@ -104,11 +106,13 @@ function escutarFirebase() {
 }
 
 async function carregarFeriadosNacionais(ano) {
+  if (anosCarregados.has(ano)) return;
+  anosCarregados.add(ano);
+
   try {
     const res = await fetch(`https://brasilapi.com.br/api/feriados/v1/${ano}`);
     if (res.ok) {
       const data = await res.json();
-      let alterou = false;
       data.forEach(f => {
         if (!feriadosAutoMap.has(f.date)) {
           feriadosAutoMap.set(f.date, {
@@ -118,10 +122,9 @@ async function carregarFeriadosNacionais(ano) {
             classNames: ['fc-event-feriado-auto'],
             isFeriadoAuto: true
           });
-          alterou = true;
         }
       });
-      if (alterou) aplicarFiltrosEAtualizar();
+      aplicarFiltrosEAtualizar();
     }
   } catch (err) {}
 }
@@ -167,14 +170,12 @@ function atualizarListasDinamicas() {
   }
 }
 
-// DEDUPLICAÇÃO E RENDERING DOS EVENTOS
 function aplicarFiltrosEAtualizar() {
   const catSel = document.getElementById('filtroCategoria') ? document.getElementById('filtroCategoria').value : 'TODAS';
   const pessoaSel = document.getElementById('filtroPessoa') ? document.getElementById('filtroPessoa').value : 'TODAS';
 
   const feriadosPorData = new Map();
 
-  // 1. Feriados automáticos da BrasilAPI
   feriadosAutoMap.forEach((feriado, date) => {
     feriadosPorData.set(date, feriado);
   });
@@ -182,11 +183,9 @@ function aplicarFiltrosEAtualizar() {
   const fcEvents = [];
   const chavesPessoasVistas = new Set();
 
-  // 2. Filtrar e deduplicar os registros do banco de dados
   todosEventos.forEach(ev => {
     if (!ev.data) return;
 
-    // Se for registro de feriado genérico (sem pessoa ou tipo FERIADO)
     const ehFeriadoGenerico = ev.tipo === 'FERIADO' || !ev.pessoa || ev.pessoa.trim() === '' || 
                               ev.pessoa.toLowerCase().includes('finados') || 
                               ev.pessoa.toLowerCase().includes('proclamação') || 
@@ -204,10 +203,9 @@ function aplicarFiltrosEAtualizar() {
           isFeriadoAuto: true
         });
       }
-      return; // Impede duplicatas do evento de feriado
+      return;
     }
 
-    // 3. Registros individuais de profissionais
     const matchCat = catSel === 'TODAS' || ev.categoria === catSel;
     const matchPessoa = pessoaSel === 'TODAS' || ev.pessoa === pessoaSel;
 
@@ -226,12 +224,11 @@ function aplicarFiltrosEAtualizar() {
     }
   });
 
-  // Garante EXATAMENTE 1 rótulo de feriado por data no calendário
   const listaFeriadosUnicos = Array.from(feriadosPorData.values());
   const todosEventosCalendario = [...fcEvents, ...listaFeriadosUnicos];
 
   if (calendar) {
-    calendar.removeAllEvents();
+    calendar.removeAllEventSources();
     calendar.addEventSource(todosEventosCalendario);
   }
   atualizarContadores();
@@ -282,7 +279,9 @@ function atualizarContadores() {
 }
 
 function atualizarTabelaFeriadoes() {
-  const corpoTabela = document.getElementById('corpoTabelaFeriadoes');
+  const corpoTabela = document.getElementById('corpoTabelaFeriadoes') || 
+                      document.getElementById('corpoTabelaRodizio') || 
+                      document.getElementById('tabelaRodizio');
   if (!corpoTabela) return;
 
   corpoTabela.innerHTML = '';
@@ -366,40 +365,50 @@ const btnSubmit = document.getElementById('btnSubmitForm');
 
 function abrirModalNovaData(dataStr) {
   idEdicaoAtual = null;
-  form.reset();
-  document.getElementById('inputData').value = dataStr;
-  document.getElementById('modalTitulo').textContent = 'Marcar Registo na Escala';
-  document.getElementById('btnExcluir').classList.add('hidden');
+  if (form) form.reset();
+  const inputData = document.getElementById('inputData');
+  if (inputData) inputData.value = dataStr;
+  
+  const tit = document.getElementById('modalTitulo');
+  if (tit) tit.textContent = 'Marcar Registo na Escala';
+  
+  const btnExcluir = document.getElementById('btnExcluir');
+  if (btnExcluir) btnExcluir.classList.add('hidden');
+  
   if (btnSubmit) {
     btnSubmit.disabled = false;
     btnSubmit.textContent = 'Guardar';
   }
-  modal.classList.remove('hidden');
+  if (modal) modal.classList.remove('hidden');
 }
 
 function abrirModalEdicao(fcEvent) {
   idEdicaoAtual = fcEvent.id;
   const dados = fcEvent.extendedProps;
 
-  document.getElementById('inputPessoa').value = dados.pessoa || '';
-  document.getElementById('inputCategoria').value = dados.categoria || '';
-  document.getElementById('inputTipo').value = dados.tipo || 'PLANTAO';
-  document.getElementById('inputData').value = dados.data || '';
-  document.getElementById('inputCH').value = dados.cargaHoraria || 2;
-  document.getElementById('inputObs').value = dados.observacao || '';
+  if (document.getElementById('inputPessoa')) document.getElementById('inputPessoa').value = dados.pessoa || '';
+  if (document.getElementById('inputCategoria')) document.getElementById('inputCategoria').value = dados.categoria || '';
+  if (document.getElementById('inputTipo')) document.getElementById('inputTipo').value = dados.tipo || 'PLANTAO';
+  if (document.getElementById('inputData')) document.getElementById('inputData').value = dados.data || '';
+  if (document.getElementById('inputCH')) document.getElementById('inputCH').value = dados.cargaHoraria || 2;
+  if (document.getElementById('inputObs')) document.getElementById('inputObs').value = dados.observacao || '';
 
-  document.getElementById('modalTitulo').textContent = 'Editar Registo';
-  document.getElementById('btnExcluir').classList.remove('hidden');
+  const tit = document.getElementById('modalTitulo');
+  if (tit) tit.textContent = 'Editar Registo';
+  
+  const btnExcluir = document.getElementById('btnExcluir');
+  if (btnExcluir) btnExcluir.classList.remove('hidden');
+  
   if (btnSubmit) {
     btnSubmit.disabled = false;
     btnSubmit.textContent = 'Guardar';
   }
-  modal.classList.remove('hidden');
+  if (modal) modal.classList.remove('hidden');
 }
 
 function fecharModal() {
-  modal.classList.add('hidden');
-  form.reset();
+  if (modal) modal.classList.add('hidden');
+  if (form) form.reset();
   if (btnSubmit) {
     btnSubmit.disabled = false;
     btnSubmit.textContent = 'Guardar';
@@ -407,106 +416,141 @@ function fecharModal() {
 }
 
 function configurarEventosUI() {
-  const btnTabCalendario = document.getElementById('btnTabCalendario');
-  const btnTabFeriadoes = document.getElementById('btnTabFeriadoes');
-  const visaoCalendario = document.getElementById('visaoCalendario');
-  const visaoFeriadoes = document.getElementById('visaoFeriadoes');
+  // Suporte flexível para os botões das abas
+  const btnTabCalendario = document.getElementById('btnTabCalendario') || 
+                          document.getElementById('btnCalendario');
+  
+  const btnTabFeriadoes = document.getElementById('btnTabFeriadoes') || 
+                          document.getElementById('btnControleRodizio') || 
+                          document.getElementById('btnRodizio') || 
+                          document.getElementById('btnTabRodizio');
 
-  if (btnTabCalendario && btnTabFeriadoes) {
+  // Suporte flexível para os containers de visão
+  const visaoCalendario = document.getElementById('visaoCalendario') || 
+                          document.getElementById('containerCalendario');
+  
+  const visaoFeriadoes = document.getElementById('visaoFeriadoes') || 
+                         document.getElementById('visaoRodizio') || 
+                         document.getElementById('containerRodizio');
+
+  if (btnTabCalendario) {
     btnTabCalendario.addEventListener('click', () => {
-      visaoCalendario.classList.remove('hidden');
-      visaoFeriadoes.classList.add('hidden');
+      if (visaoCalendario) visaoCalendario.classList.remove('hidden');
+      if (visaoFeriadoes) visaoFeriadoes.classList.add('hidden');
+      
       btnTabCalendario.className = 'py-2.5 px-5 font-bold text-emerald-600 border-b-2 border-emerald-600 text-sm transition flex items-center gap-2';
-      btnTabFeriadoes.className = 'py-2.5 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
+      if (btnTabFeriadoes) {
+        btnTabFeriadoes.className = 'py-2.5 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
+      }
       if (calendar) calendar.render();
     });
+  }
 
+  if (btnTabFeriadoes) {
     btnTabFeriadoes.addEventListener('click', () => {
-      visaoCalendario.classList.add('hidden');
-      visaoFeriadoes.classList.remove('hidden');
+      if (visaoCalendario) visaoCalendario.classList.add('hidden');
+      if (visaoFeriadoes) visaoFeriadoes.classList.remove('hidden');
+
       btnTabFeriadoes.className = 'py-2.5 px-5 font-bold text-emerald-600 border-b-2 border-emerald-600 text-sm transition flex items-center gap-2';
-      btnTabCalendario.className = 'py-2.5 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
+      if (btnTabCalendario) {
+        btnTabCalendario.className = 'py-2.5 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
+      }
       atualizarTabelaFeriadoes();
     });
   }
 
-  document.getElementById('btnNovoRegistro').addEventListener('click', () => abrirModalNovaData(new Date().toISOString().split('T')[0]));
-  document.getElementById('btnFecharModal').addEventListener('click', fecharModal);
+  const btnNovo = document.getElementById('btnNovoRegistro');
+  if (btnNovo) {
+    btnNovo.addEventListener('click', () => abrirModalNovaData(new Date().toISOString().split('T')[0]));
+  }
 
-  document.getElementById('filtroCategoria').addEventListener('change', aplicarFiltrosEAtualizar);
-  document.getElementById('filtroPessoa').addEventListener('change', aplicarFiltrosEAtualizar);
+  const btnFechar = document.getElementById('btnFecharModal');
+  if (btnFechar) btnFechar.addEventListener('click', fecharModal);
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+  const filtroCat = document.getElementById('filtroCategoria');
+  if (filtroCat) filtroCat.addEventListener('change', aplicarFiltrosEAtualizar);
 
-    const pessoaVal = document.getElementById('inputPessoa').value.trim();
-    const dataVal = document.getElementById('inputData').value;
-    if (!pessoaVal || !dataVal) {
-      alert('Por favor, preencha o nome do profissional e a data.');
-      return;
-    }
+  const filtroPess = document.getElementById('filtroPessoa');
+  if (filtroPess) filtroPess.addEventListener('change', aplicarFiltrosEAtualizar);
 
-    const payload = {
-      pessoa: pessoaVal,
-      categoria: document.getElementById('inputCategoria').value.trim() || 'Geral',
-      tipo: document.getElementById('inputTipo').value,
-      data: dataVal,
-      cargaHoraria: Number(document.getElementById('inputCH').value) || 2,
-      observacao: document.getElementById('inputObs').value.trim(),
-      atualizadoEm: new Date().toISOString()
-    };
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-    const isEdit = Boolean(idEdicaoAtual);
-    const targetId = idEdicaoAtual;
+      const pessoaVal = document.getElementById('inputPessoa').value.trim();
+      const dataVal = document.getElementById('inputData').value;
+      if (!pessoaVal || !dataVal) {
+        alert('Por favor, preencha o nome do profissional e a data.');
+        return;
+      }
 
-    fecharModal();
-    mostrarToast(isEdit ? '✅ Registo atualizado com sucesso!' : '✅ Plantão marcado com sucesso!');
+      const payload = {
+        pessoa: pessoaVal,
+        categoria: document.getElementById('inputCategoria').value.trim() || 'Geral',
+        tipo: document.getElementById('inputTipo').value,
+        data: dataVal,
+        cargaHoraria: Number(document.getElementById('inputCH').value) || 2,
+        observacao: document.getElementById('inputObs').value.trim(),
+        atualizadoEm: new Date().toISOString()
+      };
 
-    if (isEdit) {
-      const idx = todosEventos.findIndex(x => x.id === targetId);
-      if (idx !== -1) todosEventos[idx] = { id: targetId, ...payload };
-    } else {
-      const tempId = 'temp-' + Date.now();
-      todosEventos.push({ id: tempId, ...payload });
-    }
+      const isEdit = Boolean(idEdicaoAtual);
+      const targetId = idEdicaoAtual;
 
-    salvarCacheLocal();
-    aplicarFiltrosEAtualizar();
-    atualizarListasDinamicas();
-    atualizarTabelaFeriadoes();
+      fecharModal();
+      mostrarToast(isEdit ? '✅ Registo atualizado com sucesso!' : '✅ Plantão marcado com sucesso!');
 
-    if (isEdit && !targetId.startsWith('temp-')) {
-      updateDoc(doc(db, 'escalas', targetId), payload).catch(err => console.error("Erro Firebase:", err));
-    } else {
-      addDoc(collection(db, 'escalas'), payload).then(docRef => {
-        console.log("Salvo no Firebase:", docRef.id);
-      }).catch(err => console.error("Erro Firebase:", err));
-    }
-  });
+      if (isEdit) {
+        const idx = todosEventos.findIndex(x => x.id === targetId);
+        if (idx !== -1) todosEventos[idx] = { id: targetId, ...payload };
+      } else {
+        const tempId = 'temp-' + Date.now();
+        todosEventos.push({ id: tempId, ...payload });
+      }
 
-  document.getElementById('btnExcluir').addEventListener('click', async () => {
-    if (confirm('Deseja realmente eliminar este registo?')) {
-      const idParaRemover = idEdicaoAtual;
-      todosEventos = todosEventos.filter(x => x.id !== idParaRemover);
       salvarCacheLocal();
       aplicarFiltrosEAtualizar();
+      atualizarListasDinamicas();
       atualizarTabelaFeriadoes();
-      fecharModal();
-      mostrarToast('🗑️ Registo eliminado com sucesso.');
 
-      try {
-        if (idParaRemover && !idParaRemover.startsWith('temp-')) {
-          await deleteDoc(doc(db, 'escalas', idParaRemover));
-        }
-      } catch (e) {}
-    }
-  });
+      if (isEdit && !targetId.startsWith('temp-')) {
+        updateDoc(doc(db, 'escalas', targetId), payload).catch(err => console.error("Erro Firebase:", err));
+      } else {
+        addDoc(collection(db, 'escalas'), payload).then(docRef => {
+          console.log("Salvo no Firebase:", docRef.id);
+        }).catch(err => console.error("Erro Firebase:", err));
+      }
+    });
+  }
 
-  document.getElementById('btnImportarDados').addEventListener('click', importarDadosIniciais);
+  const btnExcluir = document.getElementById('btnExcluir');
+  if (btnExcluir) {
+    btnExcluir.addEventListener('click', async () => {
+      if (confirm('Deseja realmente eliminar este registo?')) {
+        const idParaRemover = idEdicaoAtual;
+        todosEventos = todosEventos.filter(x => x.id !== idParaRemover);
+        salvarCacheLocal();
+        aplicarFiltrosEAtualizar();
+        atualizarTabelaFeriadoes();
+        fecharModal();
+        mostrarToast('🗑️ Registo eliminado com sucesso.');
+
+        try {
+          if (idParaRemover && !idParaRemover.startsWith('temp-')) {
+            await deleteDoc(doc(db, 'escalas', idParaRemover));
+          }
+        } catch (e) {}
+      }
+    });
+  }
+
+  const btnImp = document.getElementById('btnImportarDados');
+  if (btnImp) btnImp.addEventListener('click', importarDadosIniciais);
 }
 
 async function importarDadosIniciais() {
   const btn = document.getElementById('btnImportarDados');
+  if (!btn) return;
   btn.disabled = true;
   btn.textContent = '⏳ A importar...';
 
