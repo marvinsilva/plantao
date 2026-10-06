@@ -3,6 +3,7 @@ import {
   getFirestore, collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc, writeBatch 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+// Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyCfXiW_MVh985LU30_6dpSoKtTxqhz38ho",
   authDomain: "plantao-fono.firebaseapp.com",
@@ -36,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
   carregarFeriadosNacionais(new Date().getFullYear());
 });
 
-// Garante que dados salvos anteriormente no navegador nunca sumam ao recarregar a página
 function carregarCacheLocal() {
   const localData = localStorage.getItem('escalas_backup_local');
   if (localData) {
@@ -93,7 +93,7 @@ function escutarFirebase() {
       }
     },
     (error) => {
-      console.warn("Usando cache local enquanto o Firebase conecta:", error);
+      console.warn("A utilizar cache local enquanto o Firebase conecta:", error);
       aplicarFiltrosEAtualizar();
     }
   );
@@ -125,34 +125,40 @@ function atualizarListasDinamicas() {
   const categoriasUnicas = [...new Set(todosEventos.map(e => e.categoria).filter(Boolean))].sort();
 
   const datalistPessoas = document.getElementById('listaPessoas');
-  datalistPessoas.innerHTML = '';
-  pessoasUnicas.forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = p;
-    datalistPessoas.appendChild(opt);
-  });
+  if (datalistPessoas) {
+    datalistPessoas.innerHTML = '';
+    pessoasUnicas.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p;
+      datalistPessoas.appendChild(opt);
+    });
+  }
 
   const selectPessoa = document.getElementById('filtroPessoa');
-  const valP = selectPessoa.value;
-  selectPessoa.innerHTML = '<option value="TODAS">Todos os Profissionais</option>';
-  pessoasUnicas.forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = p;
-    opt.textContent = p;
-    selectPessoa.appendChild(opt);
-  });
-  selectPessoa.value = valP;
+  if (selectPessoa) {
+    const valP = selectPessoa.value;
+    selectPessoa.innerHTML = '<option value="TODAS">Todos os Profissionais</option>';
+    pessoasUnicas.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p;
+      opt.textContent = p;
+      selectPessoa.appendChild(opt);
+    });
+    selectPessoa.value = valP;
+  }
 
   const selectCat = document.getElementById('filtroCategoria');
-  const valC = selectCat.value;
-  selectCat.innerHTML = '<option value="TODAS">Todas as Categorias</option>';
-  categoriasUnicas.forEach(c => {
-    const opt = document.createElement('option');
-    opt.value = c;
-    opt.textContent = c;
-    selectCat.appendChild(opt);
-  });
-  selectCat.value = valC;
+  if (selectCat) {
+    const valC = selectCat.value;
+    selectCat.innerHTML = '<option value="TODAS">Todas as Categorias</option>';
+    categoriasUnicas.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c;
+      selectCat.appendChild(opt);
+    });
+    selectCat.value = valC;
+  }
 }
 
 function aplicarFiltrosEAtualizar() {
@@ -223,7 +229,6 @@ function atualizarContadores() {
   });
 }
 
-// Notificação Toast Discreta
 function mostrarToast(mensagem) {
   const toast = document.getElementById('toastSucesso');
   const msgEl = document.getElementById('toastMensagem');
@@ -236,7 +241,6 @@ function mostrarToast(mensagem) {
   }
 }
 
-// Modal & Forms
 const modal = document.getElementById('modalForm');
 const form = document.getElementById('formEscala');
 const btnSubmit = document.getElementById('btnSubmitForm');
@@ -303,54 +307,53 @@ function configurarEventosUI() {
       atualizadoEm: new Date().toISOString()
     };
 
+    const tempId = idEdicaoAtual || ('local-' + Date.now());
+
+    // 1. Atualiza o estado local de imediato
+    if (idEdicaoAtual) {
+      const idx = todosEventos.findIndex(x => x.id === idEdicaoAtual);
+      if (idx !== -1) todosEventos[idx] = { id: idEdicaoAtual, ...payload };
+    } else {
+      todosEventos.push({ id: tempId, ...payload });
+    }
+
+    // 2. FECHA O MODAL E MOSTRA A MENSAGEM INSTANTANEAMENTE
+    salvarCacheLocal();
+    aplicarFiltrosEAtualizar();
+    atualizarListasDinamicas();
+    fecharModal();
+    mostrarToast('✅ Registo marcado com sucesso!');
+
+    // 3. Sincroniza com o Firebase em segundo plano
     try {
-      if (idEdicaoAtual) {
+      if (idEdicaoAtual && !idEdicaoAtual.startsWith('local-')) {
         await updateDoc(doc(db, 'escalas', idEdicaoAtual), payload);
-        const idx = todosEventos.findIndex(x => x.id === idEdicaoAtual);
-        if (idx !== -1) todosEventos[idx] = { id: idEdicaoAtual, ...payload };
       } else {
         const docRef = await addDoc(collection(db, 'escalas'), payload);
-        todosEventos.push({ id: docRef.id, ...payload });
+        const idx = todosEventos.findIndex(x => x.id === tempId);
+        if (idx !== -1) todosEventos[idx].id = docRef.id;
+        salvarCacheLocal();
       }
-
-      salvarCacheLocal();
-      aplicarFiltrosEAtualizar();
-      atualizarListasDinamicas();
-
-      // FECHA O MODAL AUTOMATICAMENTE E MOSTRA A MENSAGEM DISCRETA DE SUCESSO
-      fecharModal();
-      mostrarToast('✅ Registo marcado com sucesso!');
-
     } catch (err) {
-      // Se a conexão com o Firebase falhar, salva localmente
-      const localId = idEdicaoAtual || ('local-' + Date.now());
-      if (idEdicaoAtual) {
-        const idx = todosEventos.findIndex(x => x.id === idEdicaoAtual);
-        if (idx !== -1) todosEventos[idx] = { id: localId, ...payload };
-      } else {
-        todosEventos.push({ id: localId, ...payload });
-      }
-
-      salvarCacheLocal();
-      aplicarFiltrosEAtualizar();
-      atualizarListasDinamicas();
-
-      fecharModal();
-      mostrarToast('✅ Registo marcado com sucesso!');
+      console.warn("Sincronização Firebase em segundo plano:", err);
     }
   });
 
   document.getElementById('btnExcluir').addEventListener('click', async () => {
     if (confirm('Deseja realmente eliminar este registo?')) {
-      try {
-        await deleteDoc(doc(db, 'escalas', idEdicaoAtual));
-      } catch (e) {}
+      const idParaRemover = idEdicaoAtual;
       
-      todosEventos = todosEventos.filter(x => x.id !== idEdicaoAtual);
+      todosEventos = todosEventos.filter(x => x.id !== idParaRemover);
       salvarCacheLocal();
       aplicarFiltrosEAtualizar();
       fecharModal();
       mostrarToast('🗑️ Registo eliminado com sucesso.');
+
+      try {
+        if (idParaRemover && !idParaRemover.startsWith('local-')) {
+          await deleteDoc(doc(db, 'escalas', idParaRemover));
+        }
+      } catch (e) {}
     }
   });
 
