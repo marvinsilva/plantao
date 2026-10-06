@@ -5,16 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Escala de Plantão e Férias - Disfagia Adulto</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FullCalendar CSS & JS -->
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
 </head>
 <body class="bg-slate-100 font-sans text-slate-800">
 
-  <!-- Mensagem de Aviso/Conexão -->
-  <div id="statusConexao" class="hidden bg-amber-500 text-white text-center py-2 text-sm font-semibold px-4 shadow-inner">
-    A carregar dados do Firebase...
+  <!-- Toast Notificação Discreta de Sucesso -->
+  <div id="toastSucesso" class="fixed bottom-5 right-5 bg-emerald-600 text-white font-medium px-5 py-3 rounded-xl shadow-2xl hidden flex items-center gap-3 z-50 transition-all duration-300">
+    <span class="text-xl">✅</span>
+    <span id="toastMensagem">Plantão marcado com sucesso!</span>
   </div>
 
   <!-- Cabeçalho -->
@@ -26,7 +25,7 @@
       </div>
       <div class="flex gap-2">
         <button id="btnImportarDados" class="bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow transition">
-          📥 Carregar Dados das Planilhas
+          📥 Carregar Dados Iniciais
         </button>
         <button id="btnNovoRegistro" class="bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow transition">
           + Novo Registo
@@ -61,7 +60,7 @@
         </div>
       </div>
 
-      <!-- Card de Legenda -->
+      <!-- Card Legenda -->
       <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
         <h2 class="text-lg font-bold mb-3 text-slate-700 border-b pb-2">Legendas</h2>
         <div class="space-y-2 text-sm">
@@ -76,9 +75,7 @@
       <!-- Card Contador de Plantões -->
       <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
         <h2 class="text-lg font-bold mb-3 text-slate-700 border-b pb-2">Plantões no Mês</h2>
-        <div id="listaContadores" class="space-y-2 text-sm text-slate-600">
-          <!-- Gerado via JS -->
-        </div>
+        <div id="listaContadores" class="space-y-2 text-sm text-slate-600"></div>
       </div>
 
     </aside>
@@ -90,7 +87,7 @@
 
   </main>
 
-  <!-- Modal do Formulário -->
+  <!-- Modal do Form -->
   <div id="modalForm" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative">
       <h3 class="text-xl font-bold mb-4 text-slate-800" id="modalTitulo">Marcar Registo na Escala</h3>
@@ -98,18 +95,14 @@
       <form id="formEscala" class="space-y-4">
         <div>
           <label class="block text-sm font-medium mb-1">Nome do Profissional *</label>
-          <input type="text" id="inputPessoa" list="listaPessoas" required placeholder="Digite ou selecione o nome..." class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500">
-          <datalist id="listaPessoas">
-            <!-- Nomes cadastrados são inseridos dinamicamente -->
-          </datalist>
+          <input type="text" id="inputPessoa" list="listaPessoas" required placeholder="Digite o nome..." class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500">
+          <datalist id="listaPessoas"></datalist>
         </div>
 
         <div>
           <label class="block text-sm font-medium mb-1">Categoria (Opcional)</label>
-          <input type="text" id="inputCategoria" list="listaCategorias" placeholder="Ex: Preceptoria, Residente, Fonoaudiólogo..." class="w-full border border-slate-300 rounded-lg p-2.5">
-          <datalist id="listaCategorias">
-            <!-- Categorias dinâmicas -->
-          </datalist>
+          <input type="text" id="inputCategoria" list="listaCategorias" placeholder="Ex: Preceptoria, Residentes..." class="w-full border border-slate-300 rounded-lg p-2.5">
+          <datalist id="listaCategorias"></datalist>
         </div>
 
         <div>
@@ -135,7 +128,7 @@
 
         <div>
           <label class="block text-sm font-medium mb-1">Observações / Evento</label>
-          <textarea id="inputObs" rows="2" placeholder="Ex: Curso USG, Troca de plantão..." class="w-full border border-slate-300 rounded-lg p-2.5"></textarea>
+          <textarea id="inputObs" rows="2" placeholder="Ex: Curso USG..." class="w-full border border-slate-300 rounded-lg p-2.5"></textarea>
         </div>
 
         <div class="flex justify-between items-center pt-4 border-t">
@@ -154,7 +147,6 @@
       </form>
     </div>
   </div>
-  
 
   <script type="module" src="app.js"></script>
 </body>
