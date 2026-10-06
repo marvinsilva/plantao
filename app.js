@@ -349,6 +349,21 @@ function formatarDatas(datas) {
   return `${dInicio[2]}/${dInicio[1]} a ${dFim[2]}/${dFim[1]}`;
 }
 
+function gerarIntervaloDatas(dataInicioStr, dataFimStr) {
+  const lista = [];
+  let atual = new Date(dataInicioStr + 'T00:00:00');
+  const fim = new Date(dataFimStr + 'T00:00:00');
+
+  while (atual <= fim) {
+    const ano = atual.getFullYear();
+    const mes = String(atual.getMonth() + 1).padStart(2, '0');
+    const dia = String(atual.getDate()).padStart(2, '0');
+    lista.push(`${ano}-${mes}-${dia}`);
+    atual.setDate(atual.getDate() + 1);
+  }
+  return lista;
+}
+
 function mostrarToast(mensagem) {
   const toast = document.getElementById('toastSucesso');
   const msgEl = document.getElementById('toastMensagem');
@@ -366,9 +381,13 @@ const btnSubmit = document.getElementById('btnSubmitForm');
 function abrirModalNovaData(dataStr) {
   idEdicaoAtual = null;
   if (form) form.reset();
+  
   const inputData = document.getElementById('inputData');
   if (inputData) inputData.value = dataStr;
-  
+
+  const inputDataFim = document.getElementById('inputDataFim');
+  if (inputDataFim) inputDataFim.value = '';
+
   const tit = document.getElementById('modalTitulo');
   if (tit) tit.textContent = 'Marcar Registo na Escala';
   
@@ -390,7 +409,8 @@ function abrirModalEdicao(fcEvent) {
   if (document.getElementById('inputCategoria')) document.getElementById('inputCategoria').value = dados.categoria || '';
   if (document.getElementById('inputTipo')) document.getElementById('inputTipo').value = dados.tipo || 'PLANTAO';
   if (document.getElementById('inputData')) document.getElementById('inputData').value = dados.data || '';
-  if (document.getElementById('inputCH')) document.getElementById('inputCH').value = dados.cargaHoraria || 2;
+  if (document.getElementById('inputDataFim')) document.getElementById('inputDataFim').value = '';
+  if (document.getElementById('inputCH')) document.getElementById('inputCH').value = dados.cargaHoraria || 12;
   if (document.getElementById('inputObs')) document.getElementById('inputObs').value = dados.observacao || '';
 
   const tit = document.getElementById('modalTitulo');
@@ -406,32 +426,20 @@ function abrirModalEdicao(fcEvent) {
   if (modal) modal.classList.remove('hidden');
 }
 
-function fecharModal() {
+window.fecharModal = function fecharModal() {
   if (modal) modal.classList.add('hidden');
   if (form) form.reset();
   if (btnSubmit) {
     btnSubmit.disabled = false;
     btnSubmit.textContent = 'Guardar';
   }
-}
+};
 
 function configurarEventosUI() {
-  // Suporte flexível para os botões das abas
-  const btnTabCalendario = document.getElementById('btnTabCalendario') || 
-                          document.getElementById('btnCalendario');
-  
-  const btnTabFeriadoes = document.getElementById('btnTabFeriadoes') || 
-                          document.getElementById('btnControleRodizio') || 
-                          document.getElementById('btnRodizio') || 
-                          document.getElementById('btnTabRodizio');
-
-  // Suporte flexível para os containers de visão
-  const visaoCalendario = document.getElementById('visaoCalendario') || 
-                          document.getElementById('containerCalendario');
-  
-  const visaoFeriadoes = document.getElementById('visaoFeriadoes') || 
-                         document.getElementById('visaoRodizio') || 
-                         document.getElementById('containerRodizio');
+  const btnTabCalendario = document.getElementById('btnTabCalendario') || document.getElementById('btnCalendario');
+  const btnTabFeriadoes = document.getElementById('btnTabFeriadoes') || document.getElementById('btnControleRodizio') || document.getElementById('btnRodizio') || document.getElementById('btnTabRodizio');
+  const visaoCalendario = document.getElementById('visaoCalendario') || document.getElementById('containerCalendario');
+  const visaoFeriadoes = document.getElementById('visaoFeriadoes') || document.getElementById('visaoRodizio') || document.getElementById('containerRodizio');
 
   if (btnTabCalendario) {
     btnTabCalendario.addEventListener('click', () => {
@@ -474,51 +482,82 @@ function configurarEventosUI() {
   if (filtroPess) filtroPess.addEventListener('change', aplicarFiltrosEAtualizar);
 
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const pessoaVal = document.getElementById('inputPessoa').value.trim();
-      const dataVal = document.getElementById('inputData').value;
-      if (!pessoaVal || !dataVal) {
+      const dataInicioVal = document.getElementById('inputData').value;
+      const dataFimInput = document.getElementById('inputDataFim');
+      const dataFimVal = dataFimInput ? dataFimInput.value : '';
+
+      if (!pessoaVal || !dataInicioVal) {
         alert('Por favor, preencha o nome do profissional e a data.');
         return;
       }
 
-      const payload = {
-        pessoa: pessoaVal,
-        categoria: document.getElementById('inputCategoria').value.trim() || 'Geral',
-        tipo: document.getElementById('inputTipo').value,
-        data: dataVal,
-        cargaHoraria: Number(document.getElementById('inputCH').value) || 2,
-        observacao: document.getElementById('inputObs').value.trim(),
-        atualizadoEm: new Date().toISOString()
-      };
+      let arrayDatas = [dataInicioVal];
+      if (dataFimVal && dataFimVal >= dataInicioVal) {
+        arrayDatas = gerarIntervaloDatas(dataInicioVal, dataFimVal);
+      }
+
+      const tipoVal = document.getElementById('inputTipo').value;
+      const catVal = document.getElementById('inputCategoria').value.trim() || 'Fonoaudiologia';
+      const chVal = Number(document.getElementById('inputCH').value) || 12;
+      const obsVal = document.getElementById('inputObs').value.trim();
 
       const isEdit = Boolean(idEdicaoAtual);
       const targetId = idEdicaoAtual;
 
       fecharModal();
-      mostrarToast(isEdit ? '✅ Registo atualizado com sucesso!' : '✅ Plantão marcado com sucesso!');
+      
+      const msgSucesso = arrayDatas.length > 1 
+        ? `✅ ${arrayDatas.length} dias registados com sucesso!` 
+        : (isEdit ? '✅ Registo atualizado!' : '✅ Registo efetuado!');
+      
+      mostrarToast(msgSucesso);
 
-      if (isEdit) {
+      if (isEdit && arrayDatas.length === 1) {
+        const payload = {
+          pessoa: pessoaVal,
+          categoria: catVal,
+          tipo: tipoVal,
+          data: dataInicioVal,
+          cargaHoraria: chVal,
+          observacao: obsVal,
+          atualizadoEm: new Date().toISOString()
+        };
+
         const idx = todosEventos.findIndex(x => x.id === targetId);
         if (idx !== -1) todosEventos[idx] = { id: targetId, ...payload };
-      } else {
-        const tempId = 'temp-' + Date.now();
-        todosEventos.push({ id: tempId, ...payload });
-      }
 
-      salvarCacheLocal();
-      aplicarFiltrosEAtualizar();
-      atualizarListasDinamicas();
-      atualizarTabelaFeriadoes();
+        salvarCacheLocal();
+        aplicarFiltrosEAtualizar();
+        atualizarListasDinamicas();
 
-      if (isEdit && !targetId.startsWith('temp-')) {
-        updateDoc(doc(db, 'escalas', targetId), payload).catch(err => console.error("Erro Firebase:", err));
+        if (!targetId.startsWith('temp-')) {
+          updateDoc(doc(db, 'escalas', targetId), payload).catch(err => console.error(err));
+        }
       } else {
-        addDoc(collection(db, 'escalas'), payload).then(docRef => {
-          console.log("Salvo no Firebase:", docRef.id);
-        }).catch(err => console.error("Erro Firebase:", err));
+        for (const dStr of arrayDatas) {
+          const payload = {
+            pessoa: pessoaVal,
+            categoria: catVal,
+            tipo: tipoVal,
+            data: dStr,
+            cargaHoraria: chVal,
+            observacao: obsVal,
+            atualizadoEm: new Date().toISOString()
+          };
+
+          const tempId = 'temp-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4);
+          todosEventos.push({ id: tempId, ...payload });
+
+          addDoc(collection(db, 'escalas'), payload).catch(err => console.error(err));
+        }
+
+        salvarCacheLocal();
+        aplicarFiltrosEAtualizar();
+        atualizarListasDinamicas();
       }
     });
   }
@@ -569,7 +608,7 @@ async function importarDadosIniciais() {
     mostrarToast('✅ Dados importados com sucesso!');
   } catch (err) {
     alert('Erro na importação: ' + err.message);
-  } finally {
+  } font-medium {
     btn.disabled = false;
     btn.textContent = '📥 Carregar Dados Iniciais';
   }
