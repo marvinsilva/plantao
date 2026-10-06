@@ -3,6 +3,7 @@ import {
   getFirestore, collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc, writeBatch 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+// Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyCfXiW_MVh985LU30_6dpSoKtTxqhz38ho",
   authDomain: "plantao-fono.firebaseapp.com",
@@ -98,7 +99,8 @@ function escutarFirebase() {
       aplicarFiltrosEAtualizar();
       atualizarTabelaFeriadoes();
     },
-    () => {
+    (err) => {
+      console.warn("Aviso Firebase:", err);
       aplicarFiltrosEAtualizar();
       atualizarTabelaFeriadoes();
     }
@@ -273,15 +275,13 @@ function atualizarContadores() {
   Object.entries(contagem).sort((a, b) => b[1] - a[1]).forEach(([nome, qtd]) => {
     const item = document.createElement('div');
     item.className = 'flex justify-between items-center py-1 border-b border-slate-100';
-    item.innerHTML = `<span class="font-medium">${nome}</span> <span class="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full text-xs">${qtd} plantões</span>`;
+    item.innerHTML = `<span class="font-medium text-slate-700">${nome}</span> <span class="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full text-xs">${qtd} plantões</span>`;
     container.appendChild(item);
   });
 }
 
 function atualizarTabelaFeriadoes() {
-  const corpoTabela = document.getElementById('corpoTabelaFeriadoes') || 
-                      document.getElementById('corpoTabelaRodizio') || 
-                      document.getElementById('tabelaRodizio');
+  const corpoTabela = document.getElementById('corpoTabelaFeriadoes');
   if (!corpoTabela) return;
 
   corpoTabela.innerHTML = '';
@@ -389,7 +389,7 @@ function abrirModalNovaData(dataStr) {
   if (inputDataFim) inputDataFim.value = '';
 
   const tit = document.getElementById('modalTitulo');
-  if (tit) tit.textContent = 'Marcar Registo na Escala';
+  if (tit) tit.textContent = 'Marcar Registro na Escala';
   
   const btnExcluir = document.getElementById('btnExcluir');
   if (btnExcluir) btnExcluir.classList.add('hidden');
@@ -414,7 +414,7 @@ function abrirModalEdicao(fcEvent) {
   if (document.getElementById('inputObs')) document.getElementById('inputObs').value = dados.observacao || '';
 
   const tit = document.getElementById('modalTitulo');
-  if (tit) tit.textContent = 'Editar Registo';
+  if (tit) tit.textContent = 'Editar Registro';
   
   const btnExcluir = document.getElementById('btnExcluir');
   if (btnExcluir) btnExcluir.classList.remove('hidden');
@@ -436,19 +436,19 @@ window.fecharModal = function fecharModal() {
 };
 
 function configurarEventosUI() {
-  const btnTabCalendario = document.getElementById('btnTabCalendario') || document.getElementById('btnCalendario');
-  const btnTabFeriadoes = document.getElementById('btnTabFeriadoes') || document.getElementById('btnControleRodizio') || document.getElementById('btnRodizio') || document.getElementById('btnTabRodizio');
-  const visaoCalendario = document.getElementById('visaoCalendario') || document.getElementById('containerCalendario');
-  const visaoFeriadoes = document.getElementById('visaoFeriadoes') || document.getElementById('visaoRodizio') || document.getElementById('containerRodizio');
+  const btnTabCalendario = document.getElementById('btnTabCalendario');
+  const btnTabFeriadoes = document.getElementById('btnTabFeriadoes');
+  const visaoCalendario = document.getElementById('visaoCalendario');
+  const visaoFeriadoes = document.getElementById('visaoFeriadoes');
 
   if (btnTabCalendario) {
     btnTabCalendario.addEventListener('click', () => {
       if (visaoCalendario) visaoCalendario.classList.remove('hidden');
       if (visaoFeriadoes) visaoFeriadoes.classList.add('hidden');
       
-      btnTabCalendario.className = 'py-2.5 px-5 font-bold text-emerald-600 border-b-2 border-emerald-600 text-sm transition flex items-center gap-2';
+      btnTabCalendario.className = 'py-3 px-5 font-bold text-emerald-600 border-b-2 border-emerald-600 text-sm transition flex items-center gap-2';
       if (btnTabFeriadoes) {
-        btnTabFeriadoes.className = 'py-2.5 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
+        btnTabFeriadoes.className = 'py-3 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
       }
       if (calendar) calendar.render();
     });
@@ -459,9 +459,9 @@ function configurarEventosUI() {
       if (visaoCalendario) visaoCalendario.classList.add('hidden');
       if (visaoFeriadoes) visaoFeriadoes.classList.remove('hidden');
 
-      btnTabFeriadoes.className = 'py-2.5 px-5 font-bold text-emerald-600 border-b-2 border-emerald-600 text-sm transition flex items-center gap-2';
+      btnTabFeriadoes.className = 'py-3 px-5 font-bold text-emerald-600 border-b-2 border-emerald-600 text-sm transition flex items-center gap-2';
       if (btnTabCalendario) {
-        btnTabCalendario.className = 'py-2.5 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
+        btnTabCalendario.className = 'py-3 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
       }
       atualizarTabelaFeriadoes();
     });
@@ -473,7 +473,7 @@ function configurarEventosUI() {
   }
 
   const btnFechar = document.getElementById('btnFecharModal');
-  if (btnFechar) btnFechar.addEventListener('click', fecharModal);
+  if (btnFechar) btnFechar.addEventListener('click', window.fecharModal);
 
   const filtroCat = document.getElementById('filtroCategoria');
   if (filtroCat) filtroCat.addEventListener('change', aplicarFiltrosEAtualizar);
@@ -508,11 +508,11 @@ function configurarEventosUI() {
       const isEdit = Boolean(idEdicaoAtual);
       const targetId = idEdicaoAtual;
 
-      fecharModal();
+      window.fecharModal();
       
       const msgSucesso = arrayDatas.length > 1 
-        ? `✅ ${arrayDatas.length} dias registados com sucesso!` 
-        : (isEdit ? '✅ Registo atualizado!' : '✅ Registo efetuado!');
+        ? `✅ ${arrayDatas.length} dias registrados com sucesso!` 
+        : (isEdit ? '✅ Registro atualizado!' : '✅ Registro efetuado!');
       
       mostrarToast(msgSucesso);
 
@@ -535,7 +535,7 @@ function configurarEventosUI() {
         atualizarListasDinamicas();
 
         if (!targetId.startsWith('temp-')) {
-          updateDoc(doc(db, 'escalas', targetId), payload).catch(err => console.error(err));
+          updateDoc(doc(db, 'escalas', targetId)).catch(err => console.error(err));
         }
       } else {
         for (const dStr of arrayDatas) {
@@ -565,14 +565,14 @@ function configurarEventosUI() {
   const btnExcluir = document.getElementById('btnExcluir');
   if (btnExcluir) {
     btnExcluir.addEventListener('click', async () => {
-      if (confirm('Deseja realmente eliminar este registo?')) {
+      if (confirm('Deseja realmente eliminar este registro?')) {
         const idParaRemover = idEdicaoAtual;
         todosEventos = todosEventos.filter(x => x.id !== idParaRemover);
         salvarCacheLocal();
         aplicarFiltrosEAtualizar();
         atualizarTabelaFeriadoes();
-        fecharModal();
-        mostrarToast('🗑️ Registo eliminado com sucesso.');
+        window.fecharModal();
+        mostrarToast('🗑️ Registro eliminado com sucesso.');
 
         try {
           if (idParaRemover && !idParaRemover.startsWith('temp-')) {
@@ -608,7 +608,7 @@ async function importarDadosIniciais() {
     mostrarToast('✅ Dados importados com sucesso!');
   } catch (err) {
     alert('Erro na importação: ' + err.message);
-  } font-medium {
+  } finally {
     btn.disabled = false;
     btn.textContent = '📥 Carregar Dados Iniciais';
   }
