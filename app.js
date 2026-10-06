@@ -17,7 +17,7 @@ const db = getFirestore(app);
 
 let calendar;
 let todosEventos = [];
-const feriadosAutoMap = new Map(); // Mapa único por data para evitar qualquer duplicidade
+const feriadosAutoMap = new Map();
 let idEdicaoAtual = null;
 
 const CORES = {
@@ -27,6 +27,20 @@ const CORES = {
   AFASTAMENTO: '#a855f7',
   FERIADO: '#ef4444'
 };
+
+const REGRAS_FERIADOES = [
+  { id: 'ano_novo', nome: '🎆 Ano Novo', datas: { '2026': ['2026-01-01', '2026-01-02', '2026-01-03'], '2027': ['2027-01-01', '2027-01-02'] } },
+  { id: 'carnaval', nome: '🎭 Carnaval', datas: { '2026': ['2026-02-14', '2026-02-15', '2026-02-16', '2026-02-17'], '2027': ['2027-02-06', '2027-02-07', '2027-02-08', '2027-02-09'] } },
+  { id: 'paixao', nome: '✝️ Paixão de Cristo', datas: { '2026': ['2026-04-03', '2026-04-04'], '2027': ['2027-03-26', '2027-03-27'] } },
+  { id: 'tiradentes', nome: '🇧🇷 Tiradentes', datas: { '2026': ['2026-04-18', '2026-04-19', '2026-04-20', '2026-04-21'], '2027': ['2027-04-21'] } },
+  { id: 'trabalho', nome: '🛠️ Dia do Trabalho', datas: { '2026': ['2026-05-01', '2026-05-02'], '2027': ['2027-05-01'] } },
+  { id: 'corpus', nome: '🍞 Corpus Christi', datas: { '2026': ['2026-06-04', '2026-06-05', '2026-06-06'], '2027': ['2027-05-27', '2027-05-28', '2027-05-29'] } },
+  { id: 'independencia', nome: '🟢 Independência', datas: { '2026': ['2026-09-05', '2026-09-06', '2026-09-07'], '2027': ['2027-09-07'] } },
+  { id: 'aparecida', nome: '🙏 Nossa Sra. Aparecida', datas: { '2026': ['2026-10-10', '2026-10-11', '2026-10-12'], '2027': ['2027-10-12'] } },
+  { id: 'finados', nome: '🕯️ Finados', datas: { '2026': ['2026-10-31', '2026-11-01', '2026-11-02'], '2027': ['2027-11-02'] } },
+  { id: 'consciencia', nome: '✊ Consciência Negra', datas: { '2026': ['2026-11-20', '2026-11-21'], '2027': ['2027-11-20'] } },
+  { id: 'natal', nome: '🎄 Natal', datas: { '2026': ['2026-12-25', '2026-12-26'], '2027': ['2027-12-25', '2027-12-26'] } }
+];
 
 document.addEventListener('DOMContentLoaded', () => {
   carregarCacheLocal();
@@ -39,11 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function carregarCacheLocal() {
   const localData = localStorage.getItem('escalas_backup_local');
   if (localData) {
-    try {
-      todosEventos = JSON.parse(localData);
-    } catch (e) {
-      console.warn("Erro ao ler cache local", e);
-    }
+    try { todosEventos = JSON.parse(localData); } catch (e) {}
   }
 }
 
@@ -78,32 +88,27 @@ function inicializarCalendario() {
 
 function escutarFirebase() {
   const colRef = collection(db, 'escalas');
-  
   onSnapshot(colRef, 
     (snapshot) => {
-      todosEventos = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+      todosEventos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       salvarCacheLocal();
       atualizarListasDinamicas();
       aplicarFiltrosEAtualizar();
+      atualizarTabelaFeriadoes();
     },
     (error) => {
-      console.error("Erro no Firebase onSnapshot:", error);
       aplicarFiltrosEAtualizar();
+      atualizarTabelaFeriadoes();
     }
   );
 }
 
-// Busca feriados nacionais da API e garante que cada data receba apenas 1 entrada
 async function carregarFeriadosNacionais(ano) {
   try {
     const res = await fetch(`https://brasilapi.com.br/api/feriados/v1/${ano}`);
     if (res.ok) {
       const data = await res.json();
       let alterou = false;
-      
       data.forEach(f => {
         if (!feriadosAutoMap.has(f.date)) {
           feriadosAutoMap.set(f.date, {
@@ -116,18 +121,13 @@ async function carregarFeriadosNacionais(ano) {
           alterou = true;
         }
       });
-      
-      if (alterou) {
-        aplicarFiltrosEAtualizar();
-      }
+      if (alterou) aplicarFiltrosEAtualizar();
     }
-  } catch (err) {
-    console.warn("Erro ao carregar feriados automáticos:", err);
-  }
+  } catch (err) {}
 }
 
 function atualizarListasDinamicas() {
-  const pessoasUnicas = [...new Set(todosEventos.map(e => e.pessoa).filter(Boolean))].sort();
+  const pessoasUnicas = [...new Set(todosEventos.map(e => e.pessoa).filter(p => p && !p.includes('Finados') && !p.includes('Proclamação') && !p.includes('Consciência')))].sort();
   const categoriasUnicas = [...new Set(todosEventos.map(e => e.categoria).filter(Boolean))].sort();
 
   const datalistPessoas = document.getElementById('listaPessoas');
@@ -167,31 +167,75 @@ function atualizarListasDinamicas() {
   }
 }
 
+// DEDUPLICAÇÃO E RENDERING DOS EVENTOS
 function aplicarFiltrosEAtualizar() {
   const catSel = document.getElementById('filtroCategoria') ? document.getElementById('filtroCategoria').value : 'TODAS';
   const pessoaSel = document.getElementById('filtroPessoa') ? document.getElementById('filtroPessoa').value : 'TODAS';
 
-  const eventosFiltrados = todosEventos.filter(ev => {
-    const matchCat = catSel === 'TODAS' || ev.categoria === catSel;
-    const matchPessoa = pessoaSel === 'TODAS' || ev.pessoa === pessoaSel;
-    return matchCat && matchPessoa;
+  const feriadosPorData = new Map();
+
+  // 1. Feriados automáticos da BrasilAPI
+  feriadosAutoMap.forEach((feriado, date) => {
+    feriadosPorData.set(date, feriado);
   });
 
-  const fcEvents = eventosFiltrados.map(ev => ({
-    id: ev.id,
-    title: `${ev.pessoa} (${obterRotulo(ev.tipo)})`,
-    start: ev.data,
-    backgroundColor: CORES[ev.tipo] || '#64748b',
-    extendedProps: ev
-  }));
+  const fcEvents = [];
+  const chavesPessoasVistas = new Set();
 
-  const listaFeriados = Array.from(feriadosAutoMap.values());
+  // 2. Filtrar e deduplicar os registros do banco de dados
+  todosEventos.forEach(ev => {
+    if (!ev.data) return;
+
+    // Se for registro de feriado genérico (sem pessoa ou tipo FERIADO)
+    const ehFeriadoGenerico = ev.tipo === 'FERIADO' || !ev.pessoa || ev.pessoa.trim() === '' || 
+                              ev.pessoa.toLowerCase().includes('finados') || 
+                              ev.pessoa.toLowerCase().includes('proclamação') || 
+                              ev.pessoa.toLowerCase().includes('consciência');
+
+    if (ehFeriadoGenerico) {
+      if (!feriadosPorData.has(ev.data)) {
+        const nomeFeriado = ev.observacao || ev.pessoa || 'Feriado';
+        feriadosPorData.set(ev.data, {
+          id: 'feriado-ev-' + ev.data,
+          title: `🎉 ${nomeFeriado.replace(/^🎉\s*/, '')}`,
+          start: ev.data,
+          backgroundColor: CORES['FERIADO'],
+          classNames: ['fc-event-feriado-auto'],
+          isFeriadoAuto: true
+        });
+      }
+      return; // Impede duplicatas do evento de feriado
+    }
+
+    // 3. Registros individuais de profissionais
+    const matchCat = catSel === 'TODAS' || ev.categoria === catSel;
+    const matchPessoa = pessoaSel === 'TODAS' || ev.pessoa === pessoaSel;
+
+    if (matchCat && matchPessoa) {
+      const chaveUnica = `${ev.pessoa}_${ev.data}_${ev.tipo}`;
+      if (!chavesPessoasVistas.has(chaveUnica)) {
+        chavesPessoasVistas.add(chaveUnica);
+        fcEvents.push({
+          id: ev.id,
+          title: `${ev.pessoa} (${obterRotulo(ev.tipo)})`,
+          start: ev.data,
+          backgroundColor: CORES[ev.tipo] || '#64748b',
+          extendedProps: ev
+        });
+      }
+    }
+  });
+
+  // Garante EXATAMENTE 1 rótulo de feriado por data no calendário
+  const listaFeriadosUnicos = Array.from(feriadosPorData.values());
+  const todosEventosCalendario = [...fcEvents, ...listaFeriadosUnicos];
 
   if (calendar) {
     calendar.removeAllEvents();
-    calendar.addEventSource([...fcEvents, ...listaFeriados]);
+    calendar.addEventSource(todosEventosCalendario);
   }
   atualizarContadores();
+  atualizarTabelaFeriadoes();
 }
 
 function obterRotulo(tipo) {
@@ -219,7 +263,7 @@ function atualizarContadores() {
   todosEventos.forEach(ev => {
     if (!ev.data) return;
     const d = new Date(ev.data + 'T00:00:00');
-    if (d.getMonth() === mesAtual && d.getFullYear() === anoAtual && ev.tipo === 'PLANTAO') {
+    if (d.getMonth() === mesAtual && d.getFullYear() === anoAtual && ev.tipo === 'PLANTAO' && ev.pessoa) {
       contagem[ev.pessoa] = (contagem[ev.pessoa] || 0) + 1;
     }
   });
@@ -237,15 +281,82 @@ function atualizarContadores() {
   });
 }
 
+function atualizarTabelaFeriadoes() {
+  const corpoTabela = document.getElementById('corpoTabelaFeriadoes');
+  if (!corpoTabela) return;
+
+  corpoTabela.innerHTML = '';
+
+  REGRAS_FERIADOES.forEach(regra => {
+    const plantonistas2026 = obterPlantonistasFeriadao(regra.datas['2026']);
+    const plantonistas2027 = obterPlantonistasFeriadao(regra.datas['2027']);
+
+    const repetidos = plantonistas2026.filter(p => plantonistas2027.includes(p));
+
+    let statusHtml = '<span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-full text-xs">✅ Rodízio OK</span>';
+    if (repetidos.length > 0) {
+      statusHtml = `<span class="bg-amber-100 text-amber-800 font-bold px-2.5 py-1 rounded-full text-xs flex items-center gap-1">⚠️ Repetição: ${repetidos.join(', ')}</span>`;
+    } else if (plantonistas2026.length === 0 && plantonistas2027.length === 0) {
+      statusHtml = '<span class="bg-slate-100 text-slate-500 text-xs italic px-2 py-1 rounded">Aguardando registos</span>';
+    }
+
+    const tr = document.createElement('tr');
+    tr.className = 'border-b border-slate-200 hover:bg-slate-50 transition';
+    tr.innerHTML = `
+      <td class="p-3 border-r border-slate-200 font-semibold text-slate-800">${regra.nome}</td>
+      <td class="p-3 border-r border-slate-200 text-xs text-slate-600">
+        <div><b>2026:</b> ${formatarDatas(regra.datas['2026'])}</div>
+        ${regra.datas['2027'] ? `<div><b>2027:</b> ${formatarDatas(regra.datas['2027'])}</div>` : ''}
+      </td>
+      <td class="p-3 border-r border-slate-200 bg-emerald-50/50">
+        ${renderBadgesPessoas(plantonistas2026, 'emerald')}
+      </td>
+      <td class="p-3 border-r border-slate-200 bg-blue-50/50">
+        ${renderBadgesPessoas(plantonistas2027, 'blue')}
+      </td>
+      <td class="p-3">${statusHtml}</td>
+    `;
+
+    corpoTabela.appendChild(tr);
+  });
+}
+
+function obterPlantonistasFeriadao(datasArray) {
+  if (!datasArray || datasArray.length === 0) return [];
+
+  const nomes = todosEventos
+    .filter(ev => datasArray.includes(ev.data) && (ev.tipo === 'PLANTAO' || ev.tipo === 'FERIADO') && ev.pessoa && !ev.pessoa.toLowerCase().includes('finados') && !ev.pessoa.toLowerCase().includes('proclamação'))
+    .map(ev => ev.pessoa);
+
+  return [...new Set(nomes)].sort();
+}
+
+function renderBadgesPessoas(listaPessoas, cor) {
+  if (listaPessoas.length === 0) {
+    return '<span class="text-slate-400 italic text-xs">Nenhum plantão</span>';
+  }
+  const bgClass = cor === 'emerald' ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800';
+  return listaPessoas.map(nome => `<span class="${bgClass} font-bold px-2 py-0.5 rounded text-xs inline-block m-0.5">${nome}</span>`).join('');
+}
+
+function formatarDatas(datas) {
+  if (!datas || datas.length === 0) return '-';
+  if (datas.length === 1) {
+    const d = datas[0].split('-');
+    return `${d[2]}/${d[1]}`;
+  }
+  const dInicio = datas[0].split('-');
+  const dFim = datas[datas.length - 1].split('-');
+  return `${dInicio[2]}/${dInicio[1]} a ${dFim[2]}/${dFim[1]}`;
+}
+
 function mostrarToast(mensagem) {
   const toast = document.getElementById('toastSucesso');
   const msgEl = document.getElementById('toastMensagem');
   if (toast && msgEl) {
     msgEl.textContent = mensagem;
     toast.classList.remove('hidden');
-    setTimeout(() => {
-      toast.classList.add('hidden');
-    }, 2800);
+    setTimeout(() => toast.classList.add('hidden'), 2800);
   }
 }
 
@@ -296,6 +407,29 @@ function fecharModal() {
 }
 
 function configurarEventosUI() {
+  const btnTabCalendario = document.getElementById('btnTabCalendario');
+  const btnTabFeriadoes = document.getElementById('btnTabFeriadoes');
+  const visaoCalendario = document.getElementById('visaoCalendario');
+  const visaoFeriadoes = document.getElementById('visaoFeriadoes');
+
+  if (btnTabCalendario && btnTabFeriadoes) {
+    btnTabCalendario.addEventListener('click', () => {
+      visaoCalendario.classList.remove('hidden');
+      visaoFeriadoes.classList.add('hidden');
+      btnTabCalendario.className = 'py-2.5 px-5 font-bold text-emerald-600 border-b-2 border-emerald-600 text-sm transition flex items-center gap-2';
+      btnTabFeriadoes.className = 'py-2.5 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
+      if (calendar) calendar.render();
+    });
+
+    btnTabFeriadoes.addEventListener('click', () => {
+      visaoCalendario.classList.add('hidden');
+      visaoFeriadoes.classList.remove('hidden');
+      btnTabFeriadoes.className = 'py-2.5 px-5 font-bold text-emerald-600 border-b-2 border-emerald-600 text-sm transition flex items-center gap-2';
+      btnTabCalendario.className = 'py-2.5 px-5 font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-sm transition flex items-center gap-2';
+      atualizarTabelaFeriadoes();
+    });
+  }
+
   document.getElementById('btnNovoRegistro').addEventListener('click', () => abrirModalNovaData(new Date().toISOString().split('T')[0]));
   document.getElementById('btnFecharModal').addEventListener('click', fecharModal);
 
@@ -339,6 +473,7 @@ function configurarEventosUI() {
     salvarCacheLocal();
     aplicarFiltrosEAtualizar();
     atualizarListasDinamicas();
+    atualizarTabelaFeriadoes();
 
     if (isEdit && !targetId.startsWith('temp-')) {
       updateDoc(doc(db, 'escalas', targetId), payload).catch(err => console.error("Erro Firebase:", err));
@@ -352,10 +487,10 @@ function configurarEventosUI() {
   document.getElementById('btnExcluir').addEventListener('click', async () => {
     if (confirm('Deseja realmente eliminar este registo?')) {
       const idParaRemover = idEdicaoAtual;
-      
       todosEventos = todosEventos.filter(x => x.id !== idParaRemover);
       salvarCacheLocal();
       aplicarFiltrosEAtualizar();
+      atualizarTabelaFeriadoes();
       fecharModal();
       mostrarToast('🗑️ Registo eliminado com sucesso.');
 
