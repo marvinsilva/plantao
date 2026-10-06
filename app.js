@@ -3,7 +3,6 @@ import {
   getFirestore, collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc, writeBatch 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyCfXiW_MVh985LU30_6dpSoKtTxqhz38ho",
   authDomain: "plantao-fono.firebaseapp.com",
@@ -82,18 +81,19 @@ function escutarFirebase() {
   
   onSnapshot(colRef, 
     (snapshot) => {
-      if (!snapshot.empty) {
-        todosEventos = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        salvarCacheLocal();
-        atualizarListasDinamicas();
-        aplicarFiltrosEAtualizar();
-      }
+      todosEventos = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      salvarCacheLocal();
+      atualizarListasDinamicas();
+      aplicarFiltrosEAtualizar();
     },
     (error) => {
-      console.warn("A utilizar cache local enquanto o Firebase conecta:", error);
+      console.error("Erro no Firebase onSnapshot:", error);
+      if (error.code === 'permission-denied') {
+        alert("Atenção: O Firebase bloqueou a sincronização! Verifique as Regras do Firestore no console do Firebase.");
+      }
       aplicarFiltrosEAtualizar();
     }
   );
@@ -162,8 +162,8 @@ function atualizarListasDinamicas() {
 }
 
 function aplicarFiltrosEAtualizar() {
-  const catSel = document.getElementById('filtroCategoria').value;
-  const pessoaSel = document.getElementById('filtroPessoa').value;
+  const catSel = document.getElementById('filtroCategoria') ? document.getElementById('filtroCategoria').value : 'TODAS';
+  const pessoaSel = document.getElementById('filtroPessoa') ? document.getElementById('filtroPessoa').value : 'TODAS';
 
   const eventosFiltrados = todosEventos.filter(ev => {
     const matchCat = catSel === 'TODAS' || ev.categoria === catSel;
@@ -251,8 +251,10 @@ function abrirModalNovaData(dataStr) {
   document.getElementById('inputData').value = dataStr;
   document.getElementById('modalTitulo').textContent = 'Marcar Registo na Escala';
   document.getElementById('btnExcluir').classList.add('hidden');
-  btnSubmit.disabled = false;
-  btnSubmit.textContent = 'Guardar';
+  if (btnSubmit) {
+    btnSubmit.disabled = false;
+    btnSubmit.textContent = 'Guardar';
+  }
   modal.classList.remove('hidden');
 }
 
@@ -269,16 +271,20 @@ function abrirModalEdicao(fcEvent) {
 
   document.getElementById('modalTitulo').textContent = 'Editar Registo';
   document.getElementById('btnExcluir').classList.remove('hidden');
-  btnSubmit.disabled = false;
-  btnSubmit.textContent = 'Guardar';
+  if (btnSubmit) {
+    btnSubmit.disabled = false;
+    btnSubmit.textContent = 'Guardar';
+  }
   modal.classList.remove('hidden');
 }
 
 function fecharModal() {
   modal.classList.add('hidden');
   form.reset();
-  btnSubmit.disabled = false;
-  btnSubmit.textContent = 'Guardar';
+  if (btnSubmit) {
+    btnSubmit.disabled = false;
+    btnSubmit.textContent = 'Guardar';
+  }
 }
 
 function configurarEventosUI() {
@@ -288,54 +294,59 @@ function configurarEventosUI() {
   document.getElementById('filtroCategoria').addEventListener('change', aplicarFiltrosEAtualizar);
   document.getElementById('filtroPessoa').addEventListener('change', aplicarFiltrosEAtualizar);
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const pessoaVal = document.getElementById('inputPessoa').value.trim();
-    if (!pessoaVal) return;
-
-    btnSubmit.disabled = true;
-    btnSubmit.textContent = 'A guardar...';
+    const dataVal = document.getElementById('inputData').value;
+    if (!pessoaVal || !dataVal) {
+      alert('Por favor, preencha o nome do profissional e a data.');
+      return;
+    }
 
     const payload = {
       pessoa: pessoaVal,
       categoria: document.getElementById('inputCategoria').value.trim() || 'Geral',
       tipo: document.getElementById('inputTipo').value,
-      data: document.getElementById('inputData').value,
-      cargaHoraria: Number(document.getElementById('inputCH').value),
+      data: dataVal,
+      cargaHoraria: Number(document.getElementById('inputCH').value) || 2,
       observacao: document.getElementById('inputObs').value.trim(),
       atualizadoEm: new Date().toISOString()
     };
 
-    const tempId = idEdicaoAtual || ('local-' + Date.now());
+    const isEdit = Boolean(idEdicaoAtual);
+    const targetId = idEdicaoAtual;
 
-    // 1. Atualiza o estado local de imediato
-    if (idEdicaoAtual) {
-      const idx = todosEventos.findIndex(x => x.id === idEdicaoAtual);
-      if (idx !== -1) todosEventos[idx] = { id: idEdicaoAtual, ...payload };
+    // 1. FECHA A TELA E MOSTRA A MENSAGEM INSTANTANEAMENTE
+    fecharModal();
+    mostrarToast(isEdit ? '✅ Registo atualizado com sucesso!' : '✅ Plantão marcado com sucesso!');
+
+    // 2. SALVA LOCALMENTE E ATUALIZA O CALENDÁRIO NA HORA
+    if (isEdit) {
+      const idx = todosEventos.findIndex(x => x.id === targetId);
+      if (idx !== -1) todosEventos[idx] = { id: targetId, ...payload };
     } else {
+      const tempId = 'temp-' + Date.now();
       todosEventos.push({ id: tempId, ...payload });
     }
 
-    // 2. FECHA O MODAL E MOSTRA A MENSAGEM INSTANTANEAMENTE
     salvarCacheLocal();
     aplicarFiltrosEAtualizar();
     atualizarListasDinamicas();
-    fecharModal();
-    mostrarToast('✅ Registo marcado com sucesso!');
 
-    // 3. Sincroniza com o Firebase em segundo plano
-    try {
-      if (idEdicaoAtual && !idEdicaoAtual.startsWith('local-')) {
-        await updateDoc(doc(db, 'escalas', idEdicaoAtual), payload);
-      } else {
-        const docRef = await addDoc(collection(db, 'escalas'), payload);
-        const idx = todosEventos.findIndex(x => x.id === tempId);
-        if (idx !== -1) todosEventos[idx].id = docRef.id;
-        salvarCacheLocal();
-      }
-    } catch (err) {
-      console.warn("Sincronização Firebase em segundo plano:", err);
+    // 3. ENVIA PARA O FIREBASE EM SEGUNDO PLANO PARA OUTROS DISPOSITIVOS
+    if (isEdit && !targetId.startsWith('temp-')) {
+      updateDoc(doc(db, 'escalas', targetId), payload).catch(err => {
+        console.error("Erro ao sincronizar com Firebase:", err);
+        alert("Atenção: O Firebase recusou salvar na nuvem! Verifique as Regras do Firestore.");
+      });
+    } else {
+      addDoc(collection(db, 'escalas'), payload).then(docRef => {
+        console.log("Enviado com sucesso ao Firebase com ID:", docRef.id);
+      }).catch(err => {
+        console.error("Erro ao salvar no Firebase:", err);
+        alert("Atenção: O plantão foi salvo só neste aparelho. O Firebase recusou a sincronização com outros dispositivos! Erro: " + err.message);
+      });
     }
   });
 
@@ -350,7 +361,7 @@ function configurarEventosUI() {
       mostrarToast('🗑️ Registo eliminado com sucesso.');
 
       try {
-        if (idParaRemover && !idParaRemover.startsWith('local-')) {
+        if (idParaRemover && !idParaRemover.startsWith('temp-')) {
           await deleteDoc(doc(db, 'escalas', idParaRemover));
         }
       } catch (e) {}
