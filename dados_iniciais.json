@@ -1,0 +1,54 @@
+[
+  { "pessoa": "Mariana", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-01-01", "cargaHoraria": 12, "observacao": "Ano Novo" },
+  { "pessoa": "Fabiane", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-01-02", "cargaHoraria": 12, "observacao": "Ano Novo (Ponte)" },
+  { "pessoa": "Fabiane", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-01-03", "cargaHoraria": 12, "observacao": "Ano Novo (Fim de semana)" },
+  
+  { "pessoa": "Luísa", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-02-16", "cargaHoraria": 12, "observacao": "Carnaval" },
+  { "pessoa": "Lorenza", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-02-16", "cargaHoraria": 12, "observacao": "Carnaval" },
+  { "pessoa": "Luísa", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-02-17", "cargaHoraria": 12, "observacao": "Carnaval" },
+  { "pessoa": "Lorenza", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-02-17", "cargaHoraria": 12, "observacao": "Carnaval" },
+  { "pessoa": "Mariana", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-02-14", "cargaHoraria": 12, "observacao": "Carnaval (Fim de semana)" },
+  { "pessoa": "Gabriela", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-02-14", "cargaHoraria": 12, "observacao": "Carnaval (Fim de semana)" },
+  { "pessoa": "Fabiane", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-02-14", "cargaHoraria": 12, "observacao": "Carnaval (Fim de semana)" },
+  { "pessoa": "Mariana", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-02-15", "cargaHoraria": 12, "observacao": "Carnaval (Fim de semana)" },
+  { "pessoa": "Gabriela", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-02-15", "cargaHoraria": 12, "observacao": "Carnaval (Fim de semana)" },
+  { "pessoa": "Fabiane", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-02-15", "cargaHoraria": 12, "observacao": "Carnaval (Fim de semana)" },
+
+  { "pessoa": "Mariana", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-04-03", "cargaHoraria": 12, "observacao": "Paixão de Cristo" },
+  { "pessoa": "Fabiane", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-04-03", "cargaHoraria": 12, "observacao": "Paixão de Cristo" },
+  { "pessoa": "Gabriela", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-04-04", "cargaHoraria": 12, "observacao": "Paixão de Cristo (Sábado)" },
+  { "pessoa": "Lorenza", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-04-04", "cargaHoraria": 12, "observacao": "Paixão de Cristo (Sábado)" },
+  { "pessoa": "Luísa", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-04-04", "cargaHoraria": 12, "observacao": "Paixão de Cristo (Sábado)" },
+
+  { "pessoa": "Gabriela", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-04-21", "cargaHoraria": 12, "observacao": "Tiradentes" },
+  { "pessoa": "Luísa", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-04-18", "cargaHoraria": 12, "observacao": "Tiradentes (Sábado)" },
+  { "pessoa": "Luísa", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-04-20", "cargaHoraria": 12, "observacao": "Tiradentes (Ponte)" },
+
+  { "pessoa": "Gabriela", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-05-01", "cargaHoraria": 12, "observacao": "Dia do Trabalho" },
+  { "pessoa": "Luísa", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-05-01", "cargaHoraria": 12, "observacao": "Dia do Trabalho" },
+  { "pessoa": "Fabiane", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-05-02", "cargaHoraria": 12, "observacao": "Dia do Trabalho (Sábado)" },
+
+  { "pessoa": "Gabriela", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-06-04", "cargaHoraria": 12, "observacao": "Corpus Christi" },
+  { "pessoa": "Luísa", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-06-04", "cargaHoraria": 12, "observacao": "Corpus Christi" },
+  { "pessoa": "Gabriela", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-06-05", "cargaHoraria": 12, "observacao": "Corpus Christi (Ponte)" },
+  { "pessoa": "Luísa", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-06-05", "cargaHoraria": 12, "observacao": "Corpus Christi (Ponte)" },
+  { "pessoa": "Gabriela", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-06-06", "cargaHoraria": 12, "observacao": "Corpus Christi (Sábado)" },
+  { "pessoa": "Luísa", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-06-06", "cargaHoraria": 12, "observacao": "Corpus Christi (Sábado)" },
+
+  { "pessoa": "Julia", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-09-07", "cargaHoraria": 12, "observacao": "Independência do Brasil" },
+  { "pessoa": "Luisa", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-09-07", "cargaHoraria": 12, "observacao": "Independência do Brasil" },
+  { "pessoa": "Fabiane", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-09-05", "cargaHoraria": 12, "observacao": "Independência (Sábado)" },
+  { "pessoa": "Lorenza", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-09-05", "cargaHoraria": 12, "observacao": "Independência (Sábado)" },
+
+  { "pessoa": "Lorenza", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-10-10", "cargaHoraria": 12, "observacao": "Nossa Sra. Aparecida (Sábado)" },
+  { "pessoa": "Lorenza", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-10-11", "cargaHoraria": 12, "observacao": "Nossa Sra. Aparecida (Domingo)" },
+  { "pessoa": "Lorenza", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-10-12", "cargaHoraria": 12, "observacao": "Nossa Sra. Aparecida" },
+
+  { "pessoa": "Julia", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-11-02", "cargaHoraria": 12, "observacao": "Finados" },
+  { "pessoa": "Fabiane", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-11-02", "cargaHoraria": 12, "observacao": "Finados" },
+  { "pessoa": "Luísa", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-10-31", "cargaHoraria": 12, "observacao": "Finados (Sábado)" },
+  { "pessoa": "Gabriela", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-10-31", "cargaHoraria": 12, "observacao": "Finados (Sábado)" },
+
+  { "pessoa": "Júlia", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-11-20", "cargaHoraria": 12, "observacao": "Consciência Negra" },
+  { "pessoa": "Júlia", "categoria": "Fonoaudiologia", "tipo": "PLANTAO", "data": "2026-11-21", "cargaHoraria": 12, "observacao": "Consciência Negra (Sábado)" }
+]
