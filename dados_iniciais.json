@@ -8,14 +8,6 @@
     "observacao": "Plantão - Confraternização Universal"
   },
   {
-    "pessoa": "Fabiane",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-01-01",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Confraternização Universal"
-  },
-  {
     "pessoa": "Luísa",
     "tipo": "PLANTAO",
     "categoria": "Geral",
@@ -33,30 +25,6 @@
   },
   {
     "pessoa": "Mariana",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-02-16",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Carnaval"
-  },
-  {
-    "pessoa": "Gabriela",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-02-16",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Carnaval"
-  },
-  {
-    "pessoa": "Fabiane",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-02-16",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Carnaval"
-  },
-  {
-    "pessoa": "Mariana",
     "tipo": "PLANTAO",
     "categoria": "Geral",
     "data": "2026-04-03",
@@ -70,30 +38,6 @@
     "data": "2026-04-03",
     "cargaHoraria": 2,
     "observacao": "Plantão - Paixão de Cristo"
-  },
-  {
-    "pessoa": "Gabriela",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-04-03",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Paixão de Cristo"
-  },
-  {
-    "pessoa": "Lorenza",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-04-03",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Paixão de Cristo"
-  },
-  {
-    "pessoa": "Luísa",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-04-03",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Paixão de Cristo"
   },
   {
     "pessoa": "Gabriela",
@@ -104,14 +48,6 @@
     "observacao": "Plantão - Tiradentes"
   },
   {
-    "pessoa": "Luísa",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-04-21",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Tiradentes"
-  },
-  {
     "pessoa": "Gabriela",
     "tipo": "PLANTAO",
     "categoria": "Geral",
@@ -126,14 +62,6 @@
     "data": "2026-05-01",
     "cargaHoraria": 2,
     "observacao": "Plantão - Dia do Trabalho"
-  },
-  {
-    "pessoa": "Fabiane",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-05-01",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Dia do Trabalho"
   },
   {
     "pessoa": "Gabriela",
@@ -168,22 +96,6 @@
     "observacao": "Plantão - Independência do Brasil"
   },
   {
-    "pessoa": "Fabiane",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-09-07",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Independência do Brasil"
-  },
-  {
-    "pessoa": "Lorenza",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-09-07",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Independência do Brasil"
-  },
-  {
     "pessoa": "Lorenza",
     "tipo": "PLANTAO",
     "categoria": "Geral",
@@ -206,29 +118,5 @@
     "data": "2026-11-02",
     "cargaHoraria": 2,
     "observacao": "Plantão - Finados"
-  },
-  {
-    "pessoa": "Luísa",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-11-02",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Finados"
-  },
-  {
-    "pessoa": "Gabriela",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-11-02",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Finados"
-  },
-  {
-    "pessoa": "Júlia",
-    "tipo": "FOLGA",
-    "categoria": "Geral",
-    "data": "2026-11-20",
-    "cargaHoraria": 0,
-    "observacao": "Folga - Dia Nacional de Zumbi e da Consciência Negra"
   }
 ]
