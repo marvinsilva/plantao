@@ -3,7 +3,7 @@
     "pessoa": "Mariana",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-01-01",
+    "data": "2026-01-03",
     "cargaHoraria": 2,
     "observacao": "Plantão - Confraternização Universal"
   },
@@ -11,7 +11,7 @@
     "pessoa": "Luísa",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-02-16",
+    "data": "2026-02-14",
     "cargaHoraria": 2,
     "observacao": "Plantão - Carnaval"
   },
@@ -19,7 +19,7 @@
     "pessoa": "Lorenza",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-02-16",
+    "data": "2026-02-14",
     "cargaHoraria": 2,
     "observacao": "Plantão - Carnaval"
   },
@@ -27,7 +27,7 @@
     "pessoa": "Mariana",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-04-03",
+    "data": "2026-04-04",
     "cargaHoraria": 2,
     "observacao": "Plantão - Paixão de Cristo"
   },
@@ -35,7 +35,7 @@
     "pessoa": "Fabiane",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-04-03",
+    "data": "2026-04-04",
     "cargaHoraria": 2,
     "observacao": "Plantão - Paixão de Cristo"
   },
@@ -43,7 +43,7 @@
     "pessoa": "Gabriela",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-04-21",
+    "data": "2026-04-18",
     "cargaHoraria": 2,
     "observacao": "Plantão - Tiradentes"
   },
@@ -51,7 +51,7 @@
     "pessoa": "Gabriela",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-05-01",
+    "data": "2026-05-02",
     "cargaHoraria": 2,
     "observacao": "Plantão - Dia do Trabalho"
   },
@@ -59,7 +59,7 @@
     "pessoa": "Luísa",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-05-01",
+    "data": "2026-05-02",
     "cargaHoraria": 2,
     "observacao": "Plantão - Dia do Trabalho"
   },
@@ -67,7 +67,7 @@
     "pessoa": "Gabriela",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-06-04",
+    "data": "2026-06-06",
     "cargaHoraria": 2,
     "observacao": "Plantão - Corpus Christi"
   },
@@ -75,7 +75,7 @@
     "pessoa": "Luísa",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-06-04",
+    "data": "2026-06-06",
     "cargaHoraria": 2,
     "observacao": "Plantão - Corpus Christi"
   },
@@ -83,7 +83,7 @@
     "pessoa": "Julia",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-09-07",
+    "data": "2026-09-05",
     "cargaHoraria": 2,
     "observacao": "Plantão - Independência do Brasil"
   },
@@ -91,7 +91,7 @@
     "pessoa": "Luisa",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-09-07",
+    "data": "2026-09-05",
     "cargaHoraria": 2,
     "observacao": "Plantão - Independência do Brasil"
   },
@@ -99,7 +99,7 @@
     "pessoa": "Lorenza",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-10-12",
+    "data": "2026-10-10",
     "cargaHoraria": 2,
     "observacao": "Plantão - Nossa Sr.a Aparecida - Padroeira do Brasil"
   },
@@ -107,7 +107,7 @@
     "pessoa": "Julia",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-11-02",
+    "data": "2026-10-31",
     "cargaHoraria": 2,
     "observacao": "Plantão - Finados"
   },
@@ -115,7 +115,7 @@
     "pessoa": "Fabiane",
     "tipo": "PLANTAO",
     "categoria": "Geral",
-    "data": "2026-11-02",
+    "data": "2026-10-31",
     "cargaHoraria": 2,
     "observacao": "Plantão - Finados"
   }
