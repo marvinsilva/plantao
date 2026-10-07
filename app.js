@@ -18,8 +18,24 @@ const db = getFirestore(app);
 let calendar;
 let todosEventos = [];
 const feriadosAutoMap = new Map();
-const anosCarregados = new Set(); // Evita recarregar a API de feriados repetidamente
+const anosCarregados = new Set();
 let idEdicaoAtual = null;
+
+// Tabela de conversão automática: se a data for o feriado exato, converte para o Sábado do feriadão
+const MAPA_FERIADO_PARA_SABADO = {
+  '2026-01-01': '2026-01-03', // Ano Novo -> Sábado 03/01
+  '2026-02-16': '2026-02-14', // Carnaval -> Sábado 14/02
+  '2026-02-17': '2026-02-14', // Carnaval -> Sábado 14/02
+  '2026-04-03': '2026-04-04', // Paixão de Cristo -> Sábado 04/04
+  '2026-04-21': '2026-04-18', // Tiradentes -> Sábado 18/04
+  '2026-05-01': '2026-05-02', // Dia do Trabalho -> Sábado 02/05
+  '2026-06-04': '2026-06-06', // Corpus Christi -> Sábado 06/06
+  '2026-09-07': '2026-09-05', // Independência -> Sábado 05/09
+  '2026-10-12': '2026-10-10', // Nossa Sra. Aparecida -> Sábado 10/10
+  '2026-11-02': '2026-10-31', // Finados -> Sábado 31/10
+  '2026-11-20': '2026-11-21', // Consciência Negra -> Sábado 21/11
+  '2026-12-25': '2026-12-26'  // Natal -> Sábado 26/12
+};
 
 const CORES = {
   PLANTAO: '#10b981',
@@ -50,10 +66,19 @@ document.addEventListener('DOMContentLoaded', () => {
   configurarEventosUI();
 });
 
+function ajustarDataParaSabado(dataOriginal) {
+  return MAPA_FERIADO_PARA_SABADO[dataOriginal] || dataOriginal;
+}
+
 function carregarCacheLocal() {
   const localData = localStorage.getItem('escalas_backup_local');
   if (localData) {
-    try { todosEventos = JSON.parse(localData); } catch (e) {}
+    try { 
+      todosEventos = JSON.parse(localData); 
+      todosEventos.forEach(ev => {
+        if (ev.tipo === 'PLANTAO') ev.data = ajustarDataParaSabado(ev.data);
+      });
+    } catch (e) {}
   }
 }
 
@@ -90,7 +115,11 @@ function escutarFirebase() {
   const colRef = collection(db, 'escalas');
   onSnapshot(colRef, 
     (snapshot) => {
-      todosEventos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      todosEventos = snapshot.docs.map(docSnap => {
+        const d = docSnap.data();
+        if (d.tipo === 'PLANTAO') d.data = ajustarDataParaSabado(d.data);
+        return { id: docSnap.id, ...d };
+      });
       salvarCacheLocal();
       atualizarListasDinamicas();
       aplicarFiltrosEAtualizar();
@@ -174,7 +203,6 @@ function aplicarFiltrosEAtualizar() {
 
   const feriadosPorData = new Map();
 
-  // 1. Feriados automáticos da API
   feriadosAutoMap.forEach((feriado, date) => {
     feriadosPorData.set(date, feriado);
   });
@@ -182,9 +210,12 @@ function aplicarFiltrosEAtualizar() {
   const fcEvents = [];
   const chavesPessoasVistas = new Set();
 
-  // 2. Filtrar e deduplicar os registros do banco de dados
   todosEventos.forEach(ev => {
     if (!ev.data) return;
+
+    if (ev.tipo === 'PLANTAO') {
+      ev.data = ajustarDataParaSabado(ev.data);
+    }
 
     const ehFeriadoGenerico = ev.tipo === 'FERIADO' || !ev.pessoa || ev.pessoa.trim() === '' || 
                               ev.pessoa.toLowerCase().includes('finados') || 
@@ -228,7 +259,6 @@ function aplicarFiltrosEAtualizar() {
   const todosEventosCalendario = [...fcEvents, ...listaFeriadosUnicos];
 
   if (calendar) {
-    // REMOVE TODAS AS FONTES ANTERIORES PARA EVITAR MULTIPLICAÇÃO AO NAVEGAR
     calendar.removeAllEventSources();
     calendar.addEventSource(todosEventosCalendario);
   }
@@ -511,9 +541,17 @@ async function importarDadosIniciais() {
   btn.textContent = '⏳ A importar...';
 
   try {
-    const res = await fetch('dados_iniciais.json');
+    // Força a buscar o arquivo do servidor sem usar o cache do navegador
+    const res = await fetch('dados_iniciais.json?t=' + Date.now(), { cache: 'no-store' });
     if (!res.ok) throw new Error('dados_iniciais.json não encontrado');
     const dados = await res.json();
+
+    // Converte qualquer data de feriado diretamente para o Sábado
+    dados.forEach(item => {
+      if (item.tipo === 'PLANTAO') {
+        item.data = ajustarDataParaSabado(item.data);
+      }
+    });
 
     // 1. Apagar registros antigos do Firebase
     const snapshot = await getDocs(collection(db, 'escalas'));
@@ -535,7 +573,7 @@ async function importarDadosIniciais() {
     });
     await insertBatch.commit();
 
-    mostrarToast('✅ Base atualizada com sucesso!');
+    mostrarToast('✅ Base atualizada com sucesso nos Sábados!');
   } catch (err) {
     alert('Erro na importação: ' + err.message);
   } finally {
