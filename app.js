@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { 
-  getFirestore, collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc, writeBatch 
+  getFirestore, collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc, writeBatch, getDocs 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -505,6 +505,8 @@ function configurarEventosUI() {
 
 async function importarDadosIniciais() {
   const btn = document.getElementById('btnImportarDados');
+  if (!btn) return;
+  
   btn.disabled = true;
   btn.textContent = '⏳ A importar...';
 
@@ -513,14 +515,27 @@ async function importarDadosIniciais() {
     if (!res.ok) throw new Error('dados_iniciais.json não encontrado');
     const dados = await res.json();
 
-    const batch = writeBatch(db);
+    // 1. Apagar registros antigos do Firebase
+    const snapshot = await getDocs(collection(db, 'escalas'));
+    if (!snapshot.empty) {
+      const deleteBatch = writeBatch(db);
+      snapshot.docs.forEach(docSnap => deleteBatch.delete(doc(db, 'escalas', docSnap.id)));
+      await deleteBatch.commit();
+    }
+
+    // 2. Limpar cache local do navegador
+    localStorage.removeItem('escalas_backup_local');
+    todosEventos = [];
+
+    // 3. Importar os novos dados corrigidos
+    const insertBatch = writeBatch(db);
     dados.forEach(item => {
       const docRef = doc(collection(db, 'escalas'));
-      batch.set(docRef, item);
+      insertBatch.set(docRef, item);
     });
+    await insertBatch.commit();
 
-    await batch.commit();
-    mostrarToast('✅ Dados importados com sucesso!');
+    mostrarToast('✅ Base atualizada com sucesso!');
   } catch (err) {
     alert('Erro na importação: ' + err.message);
   } finally {
