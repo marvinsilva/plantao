@@ -21,21 +21,43 @@ const feriadosAutoMap = new Map();
 const anosCarregados = new Set();
 let idEdicaoAtual = null;
 
-// Tabela de conversão automática: se a data for o feriado exato, converte para o Sábado do feriadão
-const MAPA_FERIADO_PARA_SABADO = {
-  '2026-01-01': '2026-01-03', // Ano Novo -> Sábado 03/01
-  '2026-02-16': '2026-02-14', // Carnaval -> Sábado 14/02
-  '2026-02-17': '2026-02-14', // Carnaval -> Sábado 14/02
-  '2026-04-03': '2026-04-04', // Paixão de Cristo -> Sábado 04/04
-  '2026-04-21': '2026-04-18', // Tiradentes -> Sábado 18/04
-  '2026-05-01': '2026-05-02', // Dia do Trabalho -> Sábado 02/05
-  '2026-06-04': '2026-06-06', // Corpus Christi -> Sábado 06/06
-  '2026-09-07': '2026-09-05', // Independência -> Sábado 05/09
-  '2026-10-12': '2026-10-10', // Nossa Sra. Aparecida -> Sábado 10/10
-  '2026-11-02': '2026-10-31', // Finados -> Sábado 31/10
-  '2026-11-20': '2026-11-21', // Consciência Negra -> Sábado 21/11
-  '2026-12-25': '2026-12-26'  // Natal -> Sábado 26/12
-};
+// Feriados que geram "feriadão". Plantão da fono é sempre aos SÁBADOS: o sábado do feriadão é calculado
+// automaticamente (sábado mais próximo do feriado), então anos novos só precisam das datas abaixo.
+const FERIADOS = [
+  { id: 'ano_novo', nome: '🎆 Ano Novo', datas: { 2026: ['2026-01-01'], 2027: ['2027-01-01'], 2028: ['2028-01-01'] } },
+  { id: 'carnaval', nome: '🎭 Carnaval', datas: { 2026: ['2026-02-16', '2026-02-17'], 2027: ['2027-02-08', '2027-02-09'], 2028: ['2028-02-28', '2028-02-29'] } },
+  { id: 'paixao', nome: '✝️ Paixão de Cristo', datas: { 2026: ['2026-04-03'], 2027: ['2027-03-26'], 2028: ['2028-04-14'] } },
+  { id: 'tiradentes', nome: '🇧🇷 Tiradentes', datas: { 2026: ['2026-04-21'], 2027: ['2027-04-21'], 2028: ['2028-04-21'] } },
+  { id: 'trabalho', nome: '🛠️ Dia do Trabalho', datas: { 2026: ['2026-05-01'], 2027: ['2027-05-01'], 2028: ['2028-05-01'] } },
+  { id: 'corpus', nome: '🍞 Corpus Christi', datas: { 2026: ['2026-06-04'], 2027: ['2027-05-27'], 2028: ['2028-06-15'] } },
+  { id: 'independencia', nome: '🟢 Independência', datas: { 2026: ['2026-09-07'], 2027: ['2027-09-07'], 2028: ['2028-09-07'] } },
+  { id: 'aparecida', nome: '🙏 Nossa Sra. Aparecida', datas: { 2026: ['2026-10-12'], 2027: ['2027-10-12'], 2028: ['2028-10-12'] } },
+  { id: 'finados', nome: '🕯️ Finados', datas: { 2026: ['2026-11-02'], 2027: ['2027-11-02'], 2028: ['2028-11-02'] } },
+  { id: 'consciencia', nome: '✊ Consciência Negra', datas: { 2026: ['2026-11-20'], 2027: ['2027-11-20'], 2028: ['2028-11-20'] } },
+  { id: 'natal', nome: '🎄 Natal', datas: { 2026: ['2026-12-25'], 2027: ['2027-12-25'], 2028: ['2028-12-25'] } }
+];
+
+function isoLocal(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+const OFFSET_PARA_SABADO = [-1, -2, -3, 3, 2, 1, 0]; // dom, seg, ter, qua, qui, sex, sáb
+function sabadoDoFeriado(iso) {
+  const d = new Date(iso + 'T12:00:00');
+  d.setDate(d.getDate() + OFFSET_PARA_SABADO[d.getDay()]);
+  return isoLocal(d);
+}
+
+const MAPA_FERIADO_PARA_SABADO = {};
+const SABADOS_FERIADAO = new Map(); // sábado -> [ids dos feriadões]
+FERIADOS.forEach(f => {
+  f.sabados = {};
+  Object.entries(f.datas).forEach(([ano, datas]) => {
+    f.sabados[ano] = [...new Set(datas.map(sabadoDoFeriado))];
+    datas.forEach(d => { MAPA_FERIADO_PARA_SABADO[d] = sabadoDoFeriado(d); });
+    f.sabados[ano].forEach(s => SABADOS_FERIADAO.set(s, [...(SABADOS_FERIADAO.get(s) || []), f.id]));
+  });
+});
+
 
 const CORES = {
   PLANTAO: '#10b981',
@@ -45,19 +67,70 @@ const CORES = {
   FERIADO: '#ef4444'
 };
 
-const REGRAS_FERIADOES = [
-  { id: 'ano_novo', nome: '🎆 Ano Novo', datas: { '2026': ['2026-01-01', '2026-01-02', '2026-01-03'], '2027': ['2027-01-01', '2027-01-02'] } },
-  { id: 'carnaval', nome: '🎭 Carnaval', datas: { '2026': ['2026-02-14', '2026-02-15', '2026-02-16', '2026-02-17'], '2027': ['2027-02-06', '2027-02-07', '2027-02-08', '2027-02-09'] } },
-  { id: 'paixao', nome: '✝️ Paixão de Cristo', datas: { '2026': ['2026-04-03', '2026-04-04'], '2027': ['2027-03-26', '2027-03-27'] } },
-  { id: 'tiradentes', nome: '🇧🇷 Tiradentes', datas: { '2026': ['2026-04-18', '2026-04-19', '2026-04-20', '2026-04-21'], '2027': ['2027-04-21'] } },
-  { id: 'trabalho', nome: '🛠️ Dia do Trabalho', datas: { '2026': ['2026-05-01', '2026-05-02'], '2027': ['2027-05-01'] } },
-  { id: 'corpus', nome: '🍞 Corpus Christi', datas: { '2026': ['2026-06-04', '2026-06-05', '2026-06-06'], '2027': ['2027-05-27', '2027-05-28', '2027-05-29'] } },
-  { id: 'independencia', nome: '🟢 Independência', datas: { '2026': ['2026-09-05', '2026-09-06', '2026-09-07'], '2027': ['2027-09-07'] } },
-  { id: 'aparecida', nome: '🙏 Nossa Sra. Aparecida', datas: { '2026': ['2026-10-10', '2026-10-11', '2026-10-12'], '2027': ['2027-10-12'] } },
-  { id: 'finados', nome: '🕯️ Finados', datas: { '2026': ['2026-10-31', '2026-11-01', '2026-11-02'], '2027': ['2027-11-02'] } },
-  { id: 'consciencia', nome: '✊ Consciência Negra', datas: { '2026': ['2026-11-20', '2026-11-21'], '2027': ['2027-11-20'] } },
-  { id: 'natal', nome: '🎄 Natal', datas: { '2026': ['2026-12-25', '2026-12-26'], '2027': ['2027-12-25', '2027-12-26'] } }
-];
+// ---- Padronização de nomes: "luisa", "Luísa " e "LUÍSA" viram um único nome (o mais usado) ----
+const chaveNome = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
+let nomesPendentes = []; // registros do banco com grafia diferente da canônica
+
+function nomeCanonico(raw) {
+  const k = chaveNome(raw), cont = {};
+  todosEventos.forEach(e => { if (e.pessoa && chaveNome(e.pessoa) === k) cont[e.pessoa] = (cont[e.pessoa] || 0) + 1; });
+  const mais = Object.entries(cont).sort((a, b) => b[1] - a[1])[0];
+  return mais ? mais[0] : String(raw).trim().replace(/\S+/g, w => w[0].toUpperCase() + w.slice(1));
+}
+
+function normalizarNomesLocais() {
+  const cont = {};
+  todosEventos.forEach(e => {
+    if (!e.pessoa) return;
+    const k = chaveNome(e.pessoa);
+    cont[k] = cont[k] || {};
+    cont[k][e.pessoa.trim()] = (cont[k][e.pessoa.trim()] || 0) + 1;
+  });
+  const canon = {};
+  Object.entries(cont).forEach(([k, v]) => { canon[k] = Object.entries(v).sort((a, b) => b[1] - a[1])[0][0]; });
+  nomesPendentes = [];
+  const vistos = new Set();
+  todosEventos = todosEventos.filter(e => {
+    if (e.pessoa) {
+      const c = canon[chaveNome(e.pessoa)];
+      if (e.pessoa !== c) { if (e.id && !String(e.id).startsWith('temp-')) nomesPendentes.push({ id: e.id, pessoa: c }); e.pessoa = c; }
+      const chave = `${e.pessoa}|${e.data}|${e.tipo}`;
+      if (vistos.has(chave)) return false; // duplicado exato: ignora na tela
+      vistos.add(chave);
+    }
+    return true;
+  });
+}
+
+function validarRegistro(p, idIgnorar) {
+  const av = [], outros = todosEventos.filter(e => e.id !== idIgnorar && e.pessoa === p.pessoa && e.data === p.data);
+  const ausencia = ['FOLGA', 'FERIAS', 'AFASTAMENTO'];
+  if (p.tipo === 'PLANTAO' && new Date(p.data + 'T12:00:00').getDay() !== 6) av.push('o plantão da fono é aos sábados e esta data não é sábado');
+  if (outros.some(e => e.tipo === p.tipo)) av.push('já existe um registro igual para esta pessoa neste dia');
+  if (p.tipo === 'PLANTAO' && outros.some(e => ausencia.includes(e.tipo))) av.push('a pessoa já tem folga/férias/afastamento neste dia');
+  if (ausencia.includes(p.tipo) && outros.some(e => e.tipo === 'PLANTAO')) av.push('a pessoa já tem plantão neste dia');
+  return av;
+}
+
+function atualizarBoxFeriadao(marcadoPadrao) {
+  const box = document.getElementById('boxFeriadao'), chk = document.getElementById('inputFeriadao');
+  const dataVal = document.getElementById('inputData').value;
+  const ids = dataVal ? SABADOS_FERIADAO.get(ajustarDataParaSabado(dataVal)) : null;
+  const ok = ids && document.getElementById('inputTipo').value === 'PLANTAO';
+  box.classList.toggle('hidden', !ok);
+  if (ok) {
+    document.getElementById('textoFeriadao').textContent = ids.map(id => FERIADOS.find(f => f.id === id).nome).join(' / ');
+    if (marcadoPadrao !== undefined) chk.checked = marcadoPadrao;
+  } else chk.checked = false;
+}
+
+function baixarBackup() {
+  const limpo = todosEventos.map(({ id, ...r }) => r);
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(limpo, null, 2)], { type: 'application/json' }));
+  a.download = `backup_escala_${isoLocal(new Date())}.json`;
+  a.click();
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   carregarCacheLocal();
@@ -74,7 +147,7 @@ function carregarCacheLocal() {
   const localData = localStorage.getItem('escalas_backup_local');
   if (localData) {
     try { 
-      todosEventos = JSON.parse(localData); 
+      todosEventos = JSON.parse(localData); normalizarNomesLocais(); 
       todosEventos.forEach(ev => {
         if (ev.tipo === 'PLANTAO') ev.data = ajustarDataParaSabado(ev.data);
       });
@@ -102,6 +175,7 @@ function inicializarCalendario() {
       if (info.event.extendedProps.isFeriadoAuto) return;
       abrirModalEdicao(info.event);
     },
+    dayCellClassNames: (arg) => SABADOS_FERIADAO.has(isoLocal(arg.date)) ? ['fc-sabado-feriadao'] : [],
     datesSet: (info) => {
       carregarFeriadosNacionais(info.view.currentStart.getFullYear());
       atualizarContadores();
@@ -120,6 +194,7 @@ function escutarFirebase() {
         if (d.tipo === 'PLANTAO') d.data = ajustarDataParaSabado(d.data);
         return { id: docSnap.id, ...d };
       });
+      normalizarNomesLocais();
       salvarCacheLocal();
       atualizarListasDinamicas();
       aplicarFiltrosEAtualizar();
@@ -246,7 +321,7 @@ function aplicarFiltrosEAtualizar() {
         chavesPessoasVistas.add(chaveUnica);
         fcEvents.push({
           id: ev.id,
-          title: `${ev.pessoa} (${obterRotulo(ev.tipo)})`,
+          title: `${ev.pessoa} (${obterRotulo(ev.tipo)})${ev.feriadao ? ' ⭐' : ''}`,
           start: ev.data,
           backgroundColor: CORES[ev.tipo] || '#64748b',
           extendedProps: ev
@@ -309,54 +384,64 @@ function atualizarContadores() {
   });
 }
 
+function obterPlantonistasFeriadao(regra, ano) {
+  const sabs = regra.sabados[ano] || [];
+  const doSabado = todosEventos.filter(ev => ev.tipo === 'PLANTAO' && ev.pessoa && sabs.includes(ev.data));
+  const rodizio = [...new Set(doSabado.filter(ev => ev.feriadao === regra.id).map(ev => ev.pessoa))].sort();
+  const outros = [...new Set(doSabado.map(ev => ev.pessoa))].filter(n => !rodizio.includes(n)).sort();
+  return { rodizio, outros };
+}
+
+function atualizarRanking() {
+  const el = document.getElementById('rankingRodizio');
+  if (!el) return;
+  const cont = {}, cats = {};
+  todosEventos.forEach(ev => {
+    if (ev.pessoa && ev.categoria === 'Preceptora') cats[ev.pessoa] = true;
+    if (ev.tipo === 'PLANTAO' && ev.feriadao && ev.pessoa) cont[ev.pessoa] = (cont[ev.pessoa] || 0) + 1;
+  });
+  const lista = Object.keys(cats).map(n => [n, cont[n] || 0]).sort((a, b) => a[1] - b[1] || a[0].localeCompare(b[0]));
+  if (!lista.length) { el.innerHTML = ''; return; }
+  const min = lista[0][1];
+  el.innerHTML = `<div class="text-xs font-semibold text-slate-600 mb-2">Feriadões trabalhados (todos os anos). Quem tem menos tende a ser a próxima do rodízio:</div>` +
+    lista.map(([n, q]) => `<span class="inline-flex items-center gap-1 m-0.5 px-2 py-1 rounded text-xs font-semibold ${q === min ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-700'}">${n} <b>${q}</b></span>`).join('') +
+    `<div class="text-[11px] text-slate-400 mt-2">Só conta plantões marcados como "plantão do feriadão". Se alguém não registrou, o número fica menor que o real.</div>`;
+}
+
 function atualizarTabelaFeriadoes() {
-  const corpoTabela = document.getElementById('corpoTabelaFeriadoes');
-  if (!corpoTabela) return;
+  const corpo = document.getElementById('corpoTabelaFeriadoes');
+  if (!corpo) return;
+  const sel = document.getElementById('selectAnoFeriadao');
+  const a1 = Number(sel ? sel.value : 2026), a2 = a1 + 1;
+  document.getElementById('thAno1').textContent = a1;
+  document.getElementById('thAno2').textContent = a2;
+  corpo.innerHTML = '';
+  atualizarRanking();
 
-  corpoTabela.innerHTML = '';
-
-  REGRAS_FERIADOES.forEach(regra => {
-    const plantonistas2026 = obterPlantonistasFeriadao(regra.datas['2026']);
-    const plantonistas2027 = obterPlantonistasFeriadao(regra.datas['2027']);
-
-    const repetidos = plantonistas2026.filter(p => plantonistas2027.includes(p));
-
-    let statusHtml = '<span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-full text-xs">✅ Rodízio OK</span>';
-    if (repetidos.length > 0) {
-      statusHtml = `<span class="bg-amber-100 text-amber-800 font-bold px-2.5 py-1 rounded-full text-xs flex items-center gap-1">⚠️ Repetição: ${repetidos.join(', ')}</span>`;
-    } else if (plantonistas2026.length === 0 && plantonistas2027.length === 0) {
-      statusHtml = '<span class="bg-slate-100 text-slate-500 text-xs italic px-2 py-1 rounded">Aguardando registos</span>';
-    }
+  FERIADOS.forEach(regra => {
+    const p1 = obterPlantonistasFeriadao(regra, a1), p2 = obterPlantonistasFeriadao(regra, a2);
+    const repetidos = p1.rodizio.filter(p => p2.rodizio.includes(p));
+    let status = '<span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-full text-xs">✅ Rodízio OK</span>';
+    if (repetidos.length) status = `<span class="bg-amber-100 text-amber-800 font-bold px-2.5 py-1 rounded-full text-xs">⚠️ Repetição: ${repetidos.join(', ')}</span>`;
+    else if (!p1.rodizio.length && !p2.rodizio.length) status = '<span class="bg-slate-100 text-slate-500 text-xs italic px-2 py-1 rounded">Sem registro de rodízio</span>';
+    const cob = ano => (regra.sabados[ano] || []).map(s => formatarDatas([s])).join(', ');
+    const feriados = ano => (regra.datas[ano] || []).map(d => formatarDatas([d])).join(', ');
+    const celula = (p, cor) => renderBadgesPessoas(p.rodizio, cor) +
+      (p.outros.length ? `<div class="text-[11px] text-slate-400 mt-1">Também no sábado: ${p.outros.join(', ')}</div>` : '');
 
     const tr = document.createElement('tr');
     tr.className = 'border-b border-slate-200 hover:bg-slate-50 transition';
     tr.innerHTML = `
       <td class="p-3 border-r border-slate-200 font-semibold text-slate-800">${regra.nome}</td>
       <td class="p-3 border-r border-slate-200 text-xs text-slate-600">
-        <div><b>2026:</b> ${formatarDatas(regra.datas['2026'])}</div>
-        ${regra.datas['2027'] ? `<div><b>2027:</b> ${formatarDatas(regra.datas['2027'])}</div>` : ''}
+        <div><b>${a1}:</b> sábado ${cob(a1)} <span class="text-slate-400">(feriado ${feriados(a1)})</span></div>
+        <div><b>${a2}:</b> sábado ${cob(a2) || '-'} <span class="text-slate-400">(feriado ${feriados(a2) || '-'})</span></div>
       </td>
-      <td class="p-3 border-r border-slate-200 bg-emerald-50/50">
-        ${renderBadgesPessoas(plantonistas2026, 'emerald')}
-      </td>
-      <td class="p-3 border-r border-slate-200 bg-blue-50/50">
-        ${renderBadgesPessoas(plantonistas2027, 'blue')}
-      </td>
-      <td class="p-3">${statusHtml}</td>
-    `;
-
-    corpoTabela.appendChild(tr);
+      <td class="p-3 border-r border-slate-200 bg-emerald-50/50">${celula(p1, 'emerald')}</td>
+      <td class="p-3 border-r border-slate-200 bg-blue-50/50">${celula(p2, 'blue')}</td>
+      <td class="p-3">${status}</td>`;
+    corpo.appendChild(tr);
   });
-}
-
-function obterPlantonistasFeriadao(datasArray) {
-  if (!datasArray || datasArray.length === 0) return [];
-
-  const nomes = todosEventos
-    .filter(ev => datasArray.includes(ev.data) && (ev.tipo === 'PLANTAO' || ev.tipo === 'FERIADO') && ev.pessoa && !ev.pessoa.toLowerCase().includes('finados') && !ev.pessoa.toLowerCase().includes('proclamação'))
-    .map(ev => ev.pessoa);
-
-  return [...new Set(nomes)].sort();
 }
 
 function renderBadgesPessoas(listaPessoas, cor) {
@@ -396,11 +481,12 @@ function abrirModalNovaData(dataStr) {
   idEdicaoAtual = null;
   form.reset();
   document.getElementById('inputData').value = dataStr;
-  document.getElementById('modalTitulo').textContent = 'Marcar Registo na Escala';
+  atualizarBoxFeriadao(true);
+  document.getElementById('modalTitulo').textContent = 'Marcar Registro na Escala';
   document.getElementById('btnExcluir').classList.add('hidden');
   if (btnSubmit) {
     btnSubmit.disabled = false;
-    btnSubmit.textContent = 'Guardar';
+    btnSubmit.textContent = 'Salvar';
   }
   modal.classList.remove('hidden');
 }
@@ -415,12 +501,13 @@ function abrirModalEdicao(fcEvent) {
   document.getElementById('inputData').value = dados.data || '';
   document.getElementById('inputCH').value = dados.cargaHoraria || 2;
   document.getElementById('inputObs').value = dados.observacao || '';
+  atualizarBoxFeriadao(Boolean(dados.feriadao));
 
-  document.getElementById('modalTitulo').textContent = 'Editar Registo';
+  document.getElementById('modalTitulo').textContent = 'Editar Registro';
   document.getElementById('btnExcluir').classList.remove('hidden');
   if (btnSubmit) {
     btnSubmit.disabled = false;
-    btnSubmit.textContent = 'Guardar';
+    btnSubmit.textContent = 'Salvar';
   }
   modal.classList.remove('hidden');
 }
@@ -430,7 +517,7 @@ function fecharModal() {
   form.reset();
   if (btnSubmit) {
     btnSubmit.disabled = false;
-    btnSubmit.textContent = 'Guardar';
+    btnSubmit.textContent = 'Salvar';
   }
 }
 
@@ -458,44 +545,62 @@ function configurarEventosUI() {
     });
   }
 
-  document.getElementById('btnNovoRegistro').addEventListener('click', () => abrirModalNovaData(new Date().toISOString().split('T')[0]));
+  document.getElementById('btnNovoRegistro').addEventListener('click', () => abrirModalNovaData(isoLocal(new Date())));
   document.getElementById('btnFecharModal').addEventListener('click', fecharModal);
 
   document.getElementById('filtroCategoria').addEventListener('change', aplicarFiltrosEAtualizar);
   document.getElementById('filtroPessoa').addEventListener('change', aplicarFiltrosEAtualizar);
 
+  ['inputData', 'inputTipo'].forEach(id => document.getElementById(id).addEventListener('change', () => atualizarBoxFeriadao(true)));
+  document.getElementById('selectAnoFeriadao').addEventListener('change', atualizarTabelaFeriadoes);
+  document.getElementById('btnBackup').addEventListener('click', baixarBackup);
+  document.getElementById('btnImprimir').addEventListener('click', () => window.print());
+  if (location.search.includes('admin')) document.getElementById('adminTools').classList.remove('hidden');
+  document.getElementById('btnPadronizar').addEventListener('click', padronizarNomesNoBanco);
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const pessoaVal = document.getElementById('inputPessoa').value.trim();
-    const dataVal = document.getElementById('inputData').value;
-    if (!pessoaVal || !dataVal) {
-      alert('Por favor, preencha o nome do profissional e a data.');
+    const nomeDigitado = document.getElementById('inputPessoa').value.trim();
+    const dataDigitada = document.getElementById('inputData').value;
+    if (!nomeDigitado || !dataDigitada) {
+      alert('Preencha o nome do profissional e a data.');
       return;
     }
+
+    const tipo = document.getElementById('inputTipo').value;
+    const pessoaVal = nomeCanonico(nomeDigitado);
+    let dataVal = tipo === 'PLANTAO' ? ajustarDataParaSabado(dataDigitada) : dataDigitada;
+    const ids = SABADOS_FERIADAO.get(dataVal);
+    const marcouFeriadao = tipo === 'PLANTAO' && ids && document.getElementById('inputFeriadao').checked;
 
     const payload = {
       pessoa: pessoaVal,
       categoria: document.getElementById('inputCategoria').value.trim() || 'Geral',
-      tipo: document.getElementById('inputTipo').value,
+      tipo,
       data: dataVal,
       cargaHoraria: Number(document.getElementById('inputCH').value) || 2,
       observacao: document.getElementById('inputObs').value.trim(),
+      feriadao: marcouFeriadao ? ids[0] : '',
       atualizadoEm: new Date().toISOString()
     };
 
     const isEdit = Boolean(idEdicaoAtual);
     const targetId = idEdicaoAtual;
 
+    const avisos = validarRegistro(payload, targetId);
+    if (avisos.length && !confirm('Atenção:\n- ' + avisos.join('\n- ') + '\n\nSalvar mesmo assim?')) return;
+
     fecharModal();
-    mostrarToast(isEdit ? '✅ Registo atualizado com sucesso!' : '✅ Plantão marcado com sucesso!');
+    const extra = (dataVal !== dataDigitada ? ` (movido para o sábado ${formatarDatas([dataVal])})` : '') +
+                  (pessoaVal !== nomeDigitado ? ` (nome ajustado para "${pessoaVal}")` : '');
+    mostrarToast((isEdit ? '✅ Registro atualizado' : '✅ Registro salvo') + extra);
 
     if (isEdit) {
       const idx = todosEventos.findIndex(x => x.id === targetId);
       if (idx !== -1) todosEventos[idx] = { id: targetId, ...payload };
     } else {
-      const tempId = 'temp-' + Date.now();
-      todosEventos.push({ id: tempId, ...payload });
+      todosEventos.push({ id: 'temp-' + Date.now(), ...payload });
     }
 
     salvarCacheLocal();
@@ -504,23 +609,21 @@ function configurarEventosUI() {
     atualizarTabelaFeriadoes();
 
     if (isEdit && !targetId.startsWith('temp-')) {
-      updateDoc(doc(db, 'escalas', targetId), payload).catch(err => console.error("Erro Firebase:", err));
+      updateDoc(doc(db, 'escalas', targetId), payload).catch(err => console.error('Erro Firebase:', err));
     } else {
-      addDoc(collection(db, 'escalas'), payload).then(docRef => {
-        console.log("Salvo no Firebase:", docRef.id);
-      }).catch(err => console.error("Erro Firebase:", err));
+      addDoc(collection(db, 'escalas'), payload).catch(err => console.error('Erro Firebase:', err));
     }
   });
 
   document.getElementById('btnExcluir').addEventListener('click', async () => {
-    if (confirm('Deseja realmente eliminar este registo?')) {
+    if (confirm('Deseja realmente excluir este registro?')) {
       const idParaRemover = idEdicaoAtual;
       todosEventos = todosEventos.filter(x => x.id !== idParaRemover);
       salvarCacheLocal();
       aplicarFiltrosEAtualizar();
       atualizarTabelaFeriadoes();
       fecharModal();
-      mostrarToast('🗑️ Registo eliminado com sucesso.');
+      mostrarToast('🗑️ Registro excluído com sucesso.');
 
       try {
         if (idParaRemover && !idParaRemover.startsWith('temp-')) {
@@ -533,47 +636,42 @@ function configurarEventosUI() {
   document.getElementById('btnImportarDados').addEventListener('click', importarDadosIniciais);
 }
 
+async function emLotes(itens, tamanho, acao) {
+  // Firestore aceita no máximo 500 operações por batch
+  for (let i = 0; i < itens.length; i += tamanho) {
+    const b = writeBatch(db);
+    itens.slice(i, i + tamanho).forEach(it => acao(b, it));
+    await b.commit();
+  }
+}
+
+async function padronizarNomesNoBanco() {
+  if (!nomesPendentes.length) return alert('Nenhum nome para padronizar.');
+  if (!confirm(`Corrigir a grafia do nome em ${nomesPendentes.length} registro(s) no banco?`)) return;
+  await emLotes(nomesPendentes, 400, (b, p) => b.update(doc(db, 'escalas', p.id), { pessoa: p.pessoa }));
+  mostrarToast('✅ Nomes padronizados.');
+}
+
 async function importarDadosIniciais() {
   const btn = document.getElementById('btnImportarDados');
-  if (!btn) return;
-  
-  btn.disabled = true;
-  btn.textContent = '⏳ A importar...';
+  if (!confirm('ATENÇÃO: isto APAGA todos os registros atuais e recarrega o dados_iniciais.json.\nUm backup será baixado antes. Continuar?')) return;
+  baixarBackup();
 
+  btn.disabled = true;
+  btn.textContent = '⏳ Importando...';
   try {
-    // Força a buscar o arquivo do servidor sem usar o cache do navegador
     const res = await fetch('dados_iniciais.json?t=' + Date.now(), { cache: 'no-store' });
     if (!res.ok) throw new Error('dados_iniciais.json não encontrado');
     const dados = await res.json();
+    dados.forEach(item => { if (item.tipo === 'PLANTAO') item.data = ajustarDataParaSabado(item.data); });
 
-    // Converte qualquer data de feriado diretamente para o Sábado
-    dados.forEach(item => {
-      if (item.tipo === 'PLANTAO') {
-        item.data = ajustarDataParaSabado(item.data);
-      }
-    });
-
-    // 1. Apagar registros antigos do Firebase
     const snapshot = await getDocs(collection(db, 'escalas'));
-    if (!snapshot.empty) {
-      const deleteBatch = writeBatch(db);
-      snapshot.docs.forEach(docSnap => deleteBatch.delete(doc(db, 'escalas', docSnap.id)));
-      await deleteBatch.commit();
-    }
-
-    // 2. Limpar cache local do navegador
+    await emLotes(snapshot.docs, 400, (b, d) => b.delete(doc(db, 'escalas', d.id)));
     localStorage.removeItem('escalas_backup_local');
     todosEventos = [];
+    await emLotes(dados, 400, (b, item) => b.set(doc(collection(db, 'escalas')), item));
 
-    // 3. Importar os novos dados corrigidos
-    const insertBatch = writeBatch(db);
-    dados.forEach(item => {
-      const docRef = doc(collection(db, 'escalas'));
-      insertBatch.set(docRef, item);
-    });
-    await insertBatch.commit();
-
-    mostrarToast('✅ Base atualizada com sucesso nos Sábados!');
+    mostrarToast(`✅ ${dados.length} registros importados.`);
   } catch (err) {
     alert('Erro na importação: ' + err.message);
   } finally {
