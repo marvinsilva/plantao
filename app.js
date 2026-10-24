@@ -20,6 +20,8 @@ let todosEventos = [];
 const feriadosAutoMap = new Map();
 const anosCarregados = new Set();
 let idEdicaoAtual = null;
+let idsLote = null;      // ids dos registros diários de um período de férias/afastamento em edição
+let minhaAplicada = false;
 
 // Feriados que geram "feriadão". Plantão da fono é sempre aos SÁBADOS: o sábado do feriadão é calculado
 // automaticamente (sábado mais próximo do feriado), então anos novos só precisam das datas abaixo.
@@ -103,7 +105,8 @@ function normalizarNomesLocais() {
 }
 
 function validarRegistro(p, idIgnorar) {
-  const av = [], outros = todosEventos.filter(e => e.id !== idIgnorar && e.pessoa === p.pessoa && e.data === p.data);
+  const ign = [].concat(idIgnorar || []);
+  const av = [], outros = todosEventos.filter(e => !ign.includes(e.id) && e.pessoa === p.pessoa && e.data === p.data);
   const ausencia = ['FOLGA', 'FERIAS', 'AFASTAMENTO'];
   if (p.tipo === 'PLANTAO' && new Date(p.data + 'T12:00:00').getDay() !== 6) av.push('o plantão da fono é aos sábados e esta data não é sábado');
   if (outros.some(e => e.tipo === p.tipo)) av.push('já existe um registro igual para esta pessoa neste dia');
@@ -113,6 +116,7 @@ function validarRegistro(p, idIgnorar) {
 }
 
 function atualizarBoxFeriadao(marcadoPadrao) {
+  document.getElementById('boxDataFim').classList.toggle('hidden', !['FERIAS', 'AFASTAMENTO'].includes(document.getElementById('inputTipo').value));
   const box = document.getElementById('boxFeriadao'), chk = document.getElementById('inputFeriadao');
   const dataVal = document.getElementById('inputData').value;
   const ids = dataVal ? SABADOS_FERIADAO.get(ajustarDataParaSabado(dataVal)) : null;
@@ -139,6 +143,72 @@ document.addEventListener('DOMContentLoaded', () => {
   configurarEventosUI();
 });
 
+function somaDia(iso, n) { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + n); return isoLocal(d); }
+function listaDias(ini, fim) { const r = []; for (let d = ini; d <= fim && r.length < 400; d = somaDia(d, 1)) r.push(d); return r; }
+
+// Junta dias seguidos da mesma pessoa/tipo/observação em um único período
+function agruparPeriodos(registros) {
+  const grupos = {}, saida = [];
+  registros.forEach(ev => { (grupos[`${ev.pessoa}|${ev.tipo}|${ev.observacao || ''}`] = grupos[`${ev.pessoa}|${ev.tipo}|${ev.observacao || ''}`] || []).push(ev); });
+  Object.values(grupos).forEach(lista => {
+    lista.sort((a, b) => a.data.localeCompare(b.data));
+    let atual = null;
+    lista.forEach(ev => {
+      if (atual && somaDia(atual.fim, 1) === ev.data) { atual.fim = ev.data; atual.ids.push(ev.id); }
+      else { atual = { base: ev, inicio: ev.data, fim: ev.data, ids: [ev.id] }; saida.push(atual); }
+    });
+  });
+  return saida;
+}
+
+function renderMinhaEscala() {
+  const el = document.getElementById('minhaEscala'), sel = document.getElementById('selMinhaPessoa');
+  if (!el || !sel) return;
+  const nome = sel.value;
+  if (!nome) { el.innerHTML = '<p class="text-xs text-slate-400 italic">Escolha seu nome para ver só a sua escala.</p>'; return; }
+  const hoje = isoLocal(new Date()), ano = hoje.slice(0, 4);
+  const plantoes = todosEventos.filter(e => e.pessoa === nome && e.tipo === 'PLANTAO');
+  const doAno = plantoes.filter(e => e.data.startsWith(ano));
+  const prox = plantoes.filter(e => e.data >= hoje).sort((a, b) => a.data.localeCompare(b.data)).slice(0, 5);
+  const dias = d => Math.round((new Date(d + 'T12:00:00') - new Date(hoje + 'T12:00:00')) / 86400000);
+  const sem = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
+  el.innerHTML = `<div class="text-xs text-slate-500 mb-2">${doAno.length} plantões em ${ano} · ${doAno.filter(e => e.feriadao).length} ⭐ feriadão(ões)</div>` +
+    (prox.length ? prox.map(e => `<div class="flex justify-between py-1 border-b border-slate-100 text-xs"><span class="font-semibold">${sem[new Date(e.data + 'T12:00:00').getDay()]} ${formatarDatas([e.data])}${e.feriadao ? ' ⭐' : ''}</span><span class="text-slate-500">${dias(e.data) === 0 ? 'hoje' : 'em ' + dias(e.data) + ' d'}</span></div>`).join('')
+      : '<p class="text-xs text-slate-400 italic">Nenhum plantão futuro registrado.</p>');
+}
+
+function atualizarUrlPessoa(nome) {
+  const u = new URL(location.href);
+  if (nome && nome !== 'TODAS') u.searchParams.set('pessoa', nome); else u.searchParams.delete('pessoa');
+  history.replaceState(null, '', u);
+}
+
+async function salvarPeriodo(payload, dias, idsAntigos) {
+  todosEventos = todosEventos.filter(x => !idsAntigos.includes(x.id));
+  dias.forEach(d => todosEventos.push({ id: 'temp-' + d + '-' + Math.random().toString(36).slice(2, 6), ...payload, data: d }));
+  salvarCacheLocal(); aplicarFiltrosEAtualizar(); atualizarListasDinamicas(); atualizarTabelaFeriadoes();
+  mostrarToast(`✅ Período salvo (${dias.length} dia${dias.length > 1 ? 's' : ''})`);
+  const ops = [...idsAntigos.filter(i => !String(i).startsWith('temp-')).map(id => ({ del: id })), ...dias.map(d => ({ dados: { ...payload, data: d } }))];
+  try {
+    await emLotes(ops, 400, (b, op) => op.del ? b.delete(doc(db, 'escalas', op.del)) : b.set(doc(collection(db, 'escalas')), op.dados));
+  } catch (e) { alert('Não foi possível salvar no servidor: ' + e.message); }
+}
+
+const ORDEM_TIPO = { PLANTAO: 1, FOLGA: 2, FERIAS: 3, AFASTAMENTO: 4 };
+const ordemEv = x => { const p = x.extendedProps || x; return p.isFeriadoAuto ? 0 : (ORDEM_TIPO[p.tipo] ?? 9); };
+const ROTULO_CURTO = { FOLGA: 'folga', FERIAS: 'férias', AFASTAMENTO: 'afast.' };
+
+function tiposVisiveis() {
+  const marcados = [...document.querySelectorAll('.chk-tipo:checked')];
+  return document.querySelector('.chk-tipo') ? marcados.flatMap(c => c.value.split(',')) : Object.keys(ORDEM_TIPO);
+}
+
+function aplicarTema(escuro) {
+  document.documentElement.classList.toggle('dark', escuro);
+  const b = document.getElementById('btnTema');
+  if (b) b.textContent = escuro ? '☀️ Claro' : '🌙 Escuro';
+}
+
 function ajustarDataParaSabado(dataOriginal) {
   return MAPA_FERIADO_PARA_SABADO[dataOriginal] || dataOriginal;
 }
@@ -162,7 +232,12 @@ function salvarCacheLocal() {
 function inicializarCalendario() {
   const calendarEl = document.getElementById('calendar');
   calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
+    initialView: window.innerWidth < 640 ? 'listMonth' : 'dayGridMonth',
+    height: 'auto',
+    dayMaxEvents: 5,
+    moreLinkText: n => `+${n}`,
+    moreLinkClick: 'popover',
+    eventOrder: (a, b) => ordemEv(a) - ordemEv(b) || String(a.title).localeCompare(String(b.title)),
     locale: 'pt-br',
     headerToolbar: {
       left: 'prev,next today',
@@ -270,6 +345,20 @@ function atualizarListasDinamicas() {
     });
     selectCat.value = valC;
   }
+
+  const selMinha = document.getElementById('selMinhaPessoa');
+  if (selMinha) {
+    const v = selMinha.value;
+    selMinha.innerHTML = '<option value="">Escolha seu nome</option>' + pessoasUnicas.map(p => `<option value="${p}">${p}</option>`).join('');
+    selMinha.value = v;
+    if (!minhaAplicada && pessoasUnicas.length) {
+      minhaAplicada = true;
+      let desejado = new URLSearchParams(location.search).get('pessoa');
+      try { desejado = desejado || localStorage.getItem('minhaPessoa'); } catch (e) {}
+      const achado = pessoasUnicas.find(p => chaveNome(p) === chaveNome(desejado));
+      if (achado) { selMinha.value = achado; document.getElementById('filtroPessoa').value = achado; }
+    }
+  }
 }
 
 function aplicarFiltrosEAtualizar() {
@@ -283,6 +372,7 @@ function aplicarFiltrosEAtualizar() {
   });
 
   const fcEvents = [];
+  const periodos = [];
   const chavesPessoasVistas = new Set();
 
   todosEventos.forEach(ev => {
@@ -314,20 +404,34 @@ function aplicarFiltrosEAtualizar() {
 
     const matchCat = catSel === 'TODAS' || ev.categoria === catSel;
     const matchPessoa = pessoaSel === 'TODAS' || ev.pessoa === pessoaSel;
+    const matchTipo = tiposVisiveis().includes(ev.tipo);
 
-    if (matchCat && matchPessoa) {
+    if (matchCat && matchPessoa && matchTipo) {
       const chaveUnica = `${ev.pessoa}_${ev.data}_${ev.tipo}`;
       if (!chavesPessoasVistas.has(chaveUnica)) {
         chavesPessoasVistas.add(chaveUnica);
+        if (ev.tipo === 'FERIAS' || ev.tipo === 'AFASTAMENTO') { periodos.push(ev); return; }
         fcEvents.push({
           id: ev.id,
-          title: `${ev.pessoa} (${obterRotulo(ev.tipo)})${ev.feriadao ? ' ⭐' : ''}`,
+          title: ev.tipo === 'PLANTAO' ? `${ev.pessoa}${ev.feriadao ? ' ⭐' : ''}` : `${ev.pessoa} · ${ROTULO_CURTO[ev.tipo] || obterRotulo(ev.tipo)}`,
           start: ev.data,
           backgroundColor: CORES[ev.tipo] || '#64748b',
+          classNames: ['ev-' + String(ev.tipo).toLowerCase()],
           extendedProps: ev
         });
       }
     }
+  });
+
+  agruparPeriodos(periodos).forEach(p => {
+    const t = p.base.tipo;
+    fcEvents.push({
+      id: 'periodo-' + p.ids[0],
+      title: `${p.base.pessoa} · ${t === 'FERIAS' ? 'férias' : (p.base.observacao || 'afast.')}`,
+      start: p.inicio, end: somaDia(p.fim, 1), allDay: true,
+      backgroundColor: CORES[t], classNames: ['ev-' + t.toLowerCase()],
+      extendedProps: { ...p.base, data: p.inicio, inicio: p.inicio, fim: p.fim, ids: p.ids }
+    });
   });
 
   const listaFeriadosUnicos = Array.from(feriadosPorData.values());
@@ -338,6 +442,7 @@ function aplicarFiltrosEAtualizar() {
     calendar.addEventSource(todosEventosCalendario);
   }
   atualizarContadores();
+  renderMinhaEscala();
   atualizarTabelaFeriadoes();
 }
 
@@ -353,35 +458,29 @@ function obterRotulo(tipo) {
 }
 
 function atualizarContadores() {
-  const container = document.getElementById('listaContadores');
-  if (!container || !calendar) return;
-  container.innerHTML = '';
-
-  const dataAtual = calendar.getDate();
-  const mesAtual = dataAtual.getMonth();
-  const anoAtual = dataAtual.getFullYear();
-
-  const contagem = {};
-
+  const el = document.getElementById('listaContadores');
+  if (!el || !calendar) return;
+  const ref = calendar.getDate(), mes = ref.getMonth(), ano = ref.getFullYear();
+  const vistos = new Set(), porPessoa = {}, porSabado = {};
   todosEventos.forEach(ev => {
-    if (!ev.data) return;
-    const d = new Date(ev.data + 'T00:00:00');
-    if (d.getMonth() === mesAtual && d.getFullYear() === anoAtual && ev.tipo === 'PLANTAO' && ev.pessoa) {
-      contagem[ev.pessoa] = (contagem[ev.pessoa] || 0) + 1;
-    }
+    if (ev.tipo !== 'PLANTAO' || !ev.pessoa || !ev.data) return;
+    const d = new Date(ev.data + 'T12:00:00');
+    if (d.getMonth() !== mes || d.getFullYear() !== ano || vistos.has(ev.pessoa + ev.data)) return;
+    vistos.add(ev.pessoa + ev.data);
+    const p = porPessoa[ev.pessoa] = porPessoa[ev.pessoa] || { q: 0, fer: 0 };
+    p.q++; if (ev.feriadao) p.fer++;
+    porSabado[ev.data] = (porSabado[ev.data] || 0) + 1;
   });
-
-  if (Object.keys(contagem).length === 0) {
-    container.innerHTML = '<p class="text-slate-400 italic">Nenhum plantão neste mês.</p>';
-    return;
-  }
-
-  Object.entries(contagem).sort((a, b) => b[1] - a[1]).forEach(([nome, qtd]) => {
-    const item = document.createElement('div');
-    item.className = 'flex justify-between items-center py-1 border-b border-slate-100';
-    item.innerHTML = `<span class="font-medium">${nome}</span> <span class="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full text-xs">${qtd} plantões</span>`;
-    container.appendChild(item);
-  });
+  const pessoas = Object.entries(porPessoa).sort((a, b) => b[1].q - a[1].q || a[0].localeCompare(b[0]));
+  if (!pessoas.length) { el.innerHTML = '<p class="text-slate-400 italic">Nenhum plantão neste mês.</p>'; return; }
+  const max = pessoas[0][1].q, sabados = Object.entries(porSabado).sort();
+  el.innerHTML = `
+    <div class="flex items-baseline gap-2 mb-3"><span class="text-3xl font-bold text-emerald-600">${vistos.size}</span><span class="text-xs text-slate-500">plantões em ${sabados.length} sábado(s)</span></div>
+    <div class="space-y-2 mb-4">${pessoas.map(([n, v]) => `
+      <div><div class="flex justify-between text-xs mb-0.5"><span class="font-medium">${n}</span><span class="text-slate-500">${v.q}${v.fer ? ` · ${v.fer} ⭐` : ''}</span></div>
+      <div class="h-2 rounded bg-slate-100"><div class="h-2 rounded bg-emerald-500" style="width:${Math.round(v.q / max * 100)}%"></div></div></div>`).join('')}</div>
+    <div class="text-xs font-semibold text-slate-500 mb-1">Sábados do mês (dia · pessoas)</div>
+    <div class="flex flex-wrap gap-1">${sabados.map(([d, q]) => { const f = SABADOS_FERIADAO.has(d); return `<span class="px-2 py-1 rounded text-xs font-semibold ${f ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-600'}">${d.slice(8)} · ${q}${f ? ' ⭐' : ''}</span>`; }).join('')}</div>`;
 }
 
 function obterPlantonistasFeriadao(regra, ano) {
@@ -479,6 +578,7 @@ const btnSubmit = document.getElementById('btnSubmitForm');
 
 function abrirModalNovaData(dataStr) {
   idEdicaoAtual = null;
+  idsLote = null;
   form.reset();
   document.getElementById('inputData').value = dataStr;
   atualizarBoxFeriadao(true);
@@ -492,13 +592,15 @@ function abrirModalNovaData(dataStr) {
 }
 
 function abrirModalEdicao(fcEvent) {
-  idEdicaoAtual = fcEvent.id;
   const dados = fcEvent.extendedProps;
+  idsLote = dados.ids || null;
+  idEdicaoAtual = idsLote ? idsLote[0] : fcEvent.id;
 
   document.getElementById('inputPessoa').value = dados.pessoa || '';
   document.getElementById('inputCategoria').value = dados.categoria || '';
   document.getElementById('inputTipo').value = dados.tipo || 'PLANTAO';
   document.getElementById('inputData').value = dados.data || '';
+  document.getElementById('inputDataFim').value = (dados.fim && dados.fim !== dados.data) ? dados.fim : '';
   document.getElementById('inputCH').value = dados.cargaHoraria || 2;
   document.getElementById('inputObs').value = dados.observacao || '';
   atualizarBoxFeriadao(Boolean(dados.feriadao));
@@ -558,6 +660,30 @@ function configurarEventosUI() {
   if (location.search.includes('admin')) document.getElementById('adminTools').classList.remove('hidden');
   document.getElementById('btnPadronizar').addEventListener('click', padronizarNomesNoBanco);
 
+  document.getElementById('selMinhaPessoa').addEventListener('change', (e) => {
+    const nome = e.target.value;
+    try { localStorage.setItem('minhaPessoa', nome); } catch (err) {}
+    document.getElementById('filtroPessoa').value = nome || 'TODAS';
+    atualizarUrlPessoa(nome);
+    aplicarFiltrosEAtualizar();
+  });
+  document.getElementById('filtroPessoa').addEventListener('change', (e) => atualizarUrlPessoa(e.target.value));
+
+  document.querySelectorAll('.chk-tipo').forEach(c => c.addEventListener('change', aplicarFiltrosEAtualizar));
+
+  aplicarTema(document.documentElement.classList.contains('dark'));
+  document.getElementById('btnTema').addEventListener('click', () => {
+    const escuro = !document.documentElement.classList.contains('dark');
+    aplicarTema(escuro);
+    try { localStorage.setItem('tema', escuro ? 'dark' : 'light'); } catch (e) {}
+  });
+
+  document.getElementById('btnAmpliar').addEventListener('click', (ev) => {
+    const amplo = document.getElementById('visaoCalendario').classList.toggle('modo-amplo');
+    ev.currentTarget.textContent = amplo ? '⇱ Mostrar filtros' : '⛶ Ampliar calendário';
+    setTimeout(() => calendar && calendar.updateSize(), 50);
+  });
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -588,10 +714,13 @@ function configurarEventosUI() {
     const isEdit = Boolean(idEdicaoAtual);
     const targetId = idEdicaoAtual;
 
-    const avisos = validarRegistro(payload, targetId);
+    const fimVal = document.getElementById('inputDataFim').value;
+    const dias = (['FERIAS', 'AFASTAMENTO'].includes(tipo) && fimVal > dataVal) ? listaDias(dataVal, fimVal) : [dataVal];
+    const avisos = [...new Set(dias.flatMap(d => validarRegistro({ ...payload, data: d }, idsLote || targetId)))];
     if (avisos.length && !confirm('Atenção:\n- ' + avisos.join('\n- ') + '\n\nSalvar mesmo assim?')) return;
 
     fecharModal();
+    if (dias.length > 1 || idsLote) { salvarPeriodo(payload, dias, idsLote || (isEdit ? [targetId] : [])); return; }
     const extra = (dataVal !== dataDigitada ? ` (movido para o sábado ${formatarDatas([dataVal])})` : '') +
                   (pessoaVal !== nomeDigitado ? ` (nome ajustado para "${pessoaVal}")` : '');
     mostrarToast((isEdit ? '✅ Registro atualizado' : '✅ Registro salvo') + extra);
@@ -617,8 +746,8 @@ function configurarEventosUI() {
 
   document.getElementById('btnExcluir').addEventListener('click', async () => {
     if (confirm('Deseja realmente excluir este registro?')) {
-      const idParaRemover = idEdicaoAtual;
-      todosEventos = todosEventos.filter(x => x.id !== idParaRemover);
+      const idsRemover = idsLote || [idEdicaoAtual];
+      todosEventos = todosEventos.filter(x => !idsRemover.includes(x.id));
       salvarCacheLocal();
       aplicarFiltrosEAtualizar();
       atualizarTabelaFeriadoes();
@@ -626,9 +755,7 @@ function configurarEventosUI() {
       mostrarToast('🗑️ Registro excluído com sucesso.');
 
       try {
-        if (idParaRemover && !idParaRemover.startsWith('temp-')) {
-          await deleteDoc(doc(db, 'escalas', idParaRemover));
-        }
+        await emLotes(idsRemover.filter(i => i && !String(i).startsWith('temp-')), 400, (b, id) => b.delete(doc(db, 'escalas', id)));
       } catch (e) {}
     }
   });

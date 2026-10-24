@@ -57,3 +57,81 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   main, #visaoCalendario { display: block !important; max-width: 100% !important; }
   .fc-event { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
+
+
+/* ===== Calendário maior e marcadores discretos ===== */
+.fc .fc-daygrid-day-frame { min-height: 9.5rem; }
+.fc .fc-daygrid-day-events { margin-bottom: 2px; }
+.fc-daygrid-event {
+  font-size: 0.72rem;
+  line-height: 1.3;
+  padding: 0 4px;
+  margin: 0 2px 1px !important;
+  border-radius: 3px;
+}
+.fc-daygrid-event.ev-plantao { background: #d1fae5 !important; color: #065f46 !important; border-left: 3px solid #10b981 !important; font-weight: 600; }
+.fc-daygrid-event.ev-folga { background: transparent !important; color: #1d4ed8 !important; border-left: 3px solid #93c5fd !important; }
+.fc-daygrid-event.ev-ferias { background: transparent !important; color: #b45309 !important; border-left: 3px solid #fcd34d !important; }
+.fc-daygrid-event.ev-afastamento { background: transparent !important; color: #7e22ce !important; border-left: 3px solid #d8b4fe !important; }
+.fc-daygrid-event .fc-event-main { color: inherit; }
+.fc-daygrid-more-link { font-size: 0.7rem; font-weight: 600; color: #4f46e5; }
+
+/* Modo ampliado: calendário ocupa toda a largura */
+.modo-amplo { grid-template-columns: minmax(0, 1fr) !important; }
+.modo-amplo > aside { display: none; }
+.modo-amplo .fc .fc-daygrid-day-frame { min-height: 11rem; }
+
+/* ===== Modo escuro ===== */
+html.dark { color-scheme: dark; }
+.dark body { background: #0f172a; color: #e2e8f0; }
+.dark header.bg-indigo-900 { background: #1e1b4b; }
+.dark .bg-white { background-color: #1e293b; }
+.dark .bg-slate-50, .dark .bg-slate-50\/50 { background-color: #243247; }
+.dark .bg-slate-100 { background-color: #273449; }
+.dark .hover\:bg-slate-50:hover, .dark .hover\:bg-slate-100:hover { background-color: #2f3e57; }
+.dark .border-slate-100, .dark .border-slate-200, .dark .border-slate-300 { border-color: #334155; }
+.dark .text-slate-800, .dark .text-slate-700, .dark .hover\:text-slate-800:hover { color: #e2e8f0; }
+.dark .text-slate-600 { color: #cbd5e1; }
+.dark .text-slate-500 { color: #94a3b8; }
+.dark .text-slate-400 { color: #8190a5; }
+.dark .bg-emerald-50, .dark .bg-emerald-50\/50 { background-color: rgba(16, 185, 129, 0.10); }
+.dark .bg-blue-50, .dark .bg-blue-50\/50 { background-color: rgba(59, 130, 246, 0.10); }
+.dark .bg-emerald-100 { background-color: rgba(16, 185, 129, 0.22); }
+.dark .bg-blue-100 { background-color: rgba(59, 130, 246, 0.22); }
+.dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.12); }
+.dark .bg-amber-100 { background-color: rgba(245, 158, 11, 0.22); }
+.dark .text-emerald-800, .dark .text-emerald-900 { color: #6ee7b7; }
+.dark .text-blue-800, .dark .text-blue-900 { color: #93c5fd; }
+.dark .text-amber-700, .dark .text-amber-800, .dark .text-amber-900 { color: #fcd34d; }
+.dark .border-amber-200 { border-color: rgba(245, 158, 11, 0.4); }
+.dark select, .dark input, .dark textarea { color-scheme: dark; }
+
+.dark .fc {
+  --fc-page-bg-color: #1e293b;
+  --fc-neutral-bg-color: #273449;
+  --fc-neutral-text-color: #94a3b8;
+  --fc-border-color: #334155;
+  --fc-today-bg-color: rgba(99, 102, 241, 0.2);
+  --fc-list-event-hover-bg-color: #273449;
+  --fc-more-link-bg-color: #334155;
+}
+.dark .fc-daygrid-day-number, .dark .fc-col-header-cell-cushion, .dark .fc-toolbar-title,
+.dark .fc-list-day-text, .dark .fc-list-day-side-text, .dark .fc-list-event-title { color: #e2e8f0; }
+.dark .fc-day-sat { background-color: rgba(16, 185, 129, 0.07); }
+.dark .fc-sabado-feriadao { background-color: rgba(245, 158, 11, 0.16) !important; box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.6); }
+.dark .fc-popover { background: #1e293b; border-color: #334155; }
+.dark .fc-popover-header { background: #273449; color: #e2e8f0; }
+.dark .fc-event-feriado-auto { background-color: rgba(244, 63, 94, 0.18) !important; color: #fda4af !important; }
+.dark .fc-daygrid-more-link { color: #a5b4fc; }
+.dark .fc-daygrid-event.ev-plantao { background: rgba(16, 185, 129, 0.22) !important; color: #a7f3d0 !important; }
+.dark .fc-daygrid-event.ev-folga { color: #93c5fd !important; }
+.dark .fc-daygrid-event.ev-ferias { color: #fcd34d !important; }
+.dark .fc-daygrid-event.ev-afastamento { color: #d8b4fe !important; }
+.dark .fc-button-primary { background-color: #4f46e5 !important; }
+
+
+/* ===== Férias e afastamentos como barra contínua ===== */
+.fc-daygrid-event.ev-ferias { background: #fef3c7 !important; }
+.fc-daygrid-event.ev-afastamento { background: #f3e8ff !important; }
+.dark .fc-daygrid-event.ev-ferias { background: rgba(245, 158, 11, 0.18) !important; }
+.dark .fc-daygrid-event.ev-afastamento { background: rgba(168, 85, 247, 0.2) !important; }
