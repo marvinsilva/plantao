@@ -1,122 +1,4881 @@
 [
   {
-    "pessoa": "Mariana",
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-01-02",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-01-03",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-01-03",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Geórgia",
     "tipo": "PLANTAO",
-    "categoria": "Geral",
+    "categoria": "Residente",
     "data": "2026-01-03",
     "cargaHoraria": 2,
-    "observacao": "Plantão - Confraternização Universal"
-  },
-  {
-    "pessoa": "Luísa",
-    "tipo": "PLANTAO",
-    "categoria": "Geral",
-    "data": "2026-02-14",
-    "cargaHoraria": 2,
-    "observacao": "Plantão - Carnaval"
+    "observacao": ""
   },
   {
     "pessoa": "Lorenza",
     "tipo": "PLANTAO",
-    "categoria": "Geral",
-    "data": "2026-02-14",
+    "categoria": "Preceptora",
+    "data": "2026-01-03",
     "cargaHoraria": 2,
-    "observacao": "Plantão - Carnaval"
+    "observacao": ""
   },
   {
     "pessoa": "Mariana",
     "tipo": "PLANTAO",
-    "categoria": "Geral",
-    "data": "2026-04-04",
+    "categoria": "Preceptora",
+    "data": "2026-01-03",
     "cargaHoraria": 2,
-    "observacao": "Plantão - Paixão de Cristo"
+    "observacao": "Plantão - Confraternização Universal",
+    "feriadao": "ano_novo"
   },
   {
     "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-05",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-06",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-07",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-08",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-09",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-10",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-01-10",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-01-10",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
     "tipo": "PLANTAO",
-    "categoria": "Geral",
-    "data": "2026-04-04",
+    "categoria": "Residente",
+    "data": "2026-01-10",
     "cargaHoraria": 2,
-    "observacao": "Plantão - Paixão de Cristo"
+    "observacao": ""
   },
   {
     "pessoa": "Gabriela",
     "tipo": "PLANTAO",
-    "categoria": "Geral",
-    "data": "2026-04-18",
+    "categoria": "Preceptora",
+    "data": "2026-01-10",
     "cargaHoraria": 2,
-    "observacao": "Plantão - Tiradentes"
-  },
-  {
-    "pessoa": "Gabriela",
-    "tipo": "PLANTAO",
-    "categoria": "Geral",
-    "data": "2026-05-02",
-    "cargaHoraria": 2,
-    "observacao": "Plantão - Dia do Trabalho"
+    "observacao": ""
   },
   {
     "pessoa": "Luísa",
     "tipo": "PLANTAO",
-    "categoria": "Geral",
-    "data": "2026-05-02",
+    "categoria": "Preceptora",
+    "data": "2026-01-10",
     "cargaHoraria": 2,
-    "observacao": "Plantão - Dia do Trabalho"
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-11",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-12",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-12",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-13",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-13",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-14",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-14",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-15",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-15",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-16",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-16",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-17",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-17",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-01-17",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-01-17",
+    "cargaHoraria": 2,
+    "observacao": ""
   },
   {
     "pessoa": "Gabriela",
     "tipo": "PLANTAO",
-    "categoria": "Geral",
-    "data": "2026-06-06",
+    "categoria": "Preceptora",
+    "data": "2026-01-17",
     "cargaHoraria": 2,
-    "observacao": "Plantão - Corpus Christi"
-  },
-  {
-    "pessoa": "Luísa",
-    "tipo": "PLANTAO",
-    "categoria": "Geral",
-    "data": "2026-06-06",
-    "cargaHoraria": 2,
-    "observacao": "Plantão - Corpus Christi"
-  },
-  {
-    "pessoa": "Julia",
-    "tipo": "PLANTAO",
-    "categoria": "Geral",
-    "data": "2026-09-05",
-    "cargaHoraria": 2,
-    "observacao": "Plantão - Independência do Brasil"
-  },
-  {
-    "pessoa": "Luisa",
-    "tipo": "PLANTAO",
-    "categoria": "Geral",
-    "data": "2026-09-05",
-    "cargaHoraria": 2,
-    "observacao": "Plantão - Independência do Brasil"
+    "observacao": ""
   },
   {
     "pessoa": "Lorenza",
     "tipo": "PLANTAO",
-    "categoria": "Geral",
-    "data": "2026-10-10",
+    "categoria": "Preceptora",
+    "data": "2026-01-17",
     "cargaHoraria": 2,
-    "observacao": "Plantão - Nossa Sr.a Aparecida - Padroeira do Brasil"
+    "observacao": ""
   },
   {
-    "pessoa": "Julia",
-    "tipo": "PLANTAO",
-    "categoria": "Geral",
-    "data": "2026-10-31",
-    "cargaHoraria": 2,
-    "observacao": "Plantão - Finados"
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-18",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-18",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-01-19",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-19",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-20",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-21",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-22",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-23",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-24",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-01-24",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-01-24",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-01-24",
+    "cargaHoraria": 0,
+    "observacao": ""
   },
   {
     "pessoa": "Fabiane",
     "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-01-24",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-01-24",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-01-24",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-25",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-26",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-26",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-27",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-28",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-29",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-30",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-01-31",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-01-31",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-01-31",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-01-31",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-01-31",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-01-31",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-01-31",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-01",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-02",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-02",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-03",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-03",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-04",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-04",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-05",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-05",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-06",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-06",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-07",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-07",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-02-07",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-02-07",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-02-07",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-02-07",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-02-07",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-02-07",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-08",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-08",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-09",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-09",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-10",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-11",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-12",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-13",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-14",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-02-14",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-02-14",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-02-14",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-02-14",
+    "cargaHoraria": 2,
+    "observacao": "Plantão - Carnaval",
+    "feriadao": "carnaval"
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-02-14",
+    "cargaHoraria": 2,
+    "observacao": "Plantão - Carnaval",
+    "feriadao": "carnaval"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-15",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-02-16",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-02-18",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-02-19",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-02-20",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-02-21",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FOLGA",
+    "categoria": "Residente",
+    "data": "2026-02-21",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-02-21",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-02-21",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-02-21",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Geórgia",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-02-21",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-02-21",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-02-21",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-02-22",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-02-23",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-02-24",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-02-25",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-02-26",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-02-27",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-02-28",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-02-28",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-02-28",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FOLGA",
+    "categoria": "Residente",
+    "data": "2026-02-28",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-02-28",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-02-28",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-02-28",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-03-07",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-03-07",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-03-07",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-03-07",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-03-07",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-03-07",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-03-07",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-03-07",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-03-14",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-03-14",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-03-14",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-03-14",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-03-14",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-03-14",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-03-14",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-03-14",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-03-21",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-03-21",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-03-21",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-03-21",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-03-21",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-03-21",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-03-21",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-03-28",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-03-28",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-03-28",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-03-28",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-03-28",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-03-28",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-03-28",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-04-04",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-04-04",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-04-04",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-04-04",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-04-04",
+    "cargaHoraria": 2,
+    "observacao": "Plantão - Paixão de Cristo (conferir: a aba de abril marca folga para ela nesse dia)",
+    "feriadao": "paixao"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-04-04",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-04-04",
+    "cargaHoraria": 2,
+    "observacao": "Plantão - Paixão de Cristo",
+    "feriadao": "paixao"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-06",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-07",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-08",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-09",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-10",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-11",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-04-11",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-04-11",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-04-11",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-04-11",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-04-11",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-04-11",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-12",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-13",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-14",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-15",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "AFASTAMENTO",
+    "categoria": "Preceptora",
+    "data": "2026-04-16",
+    "cargaHoraria": 0,
+    "observacao": "Saída da Mari"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-16",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "AFASTAMENTO",
+    "categoria": "Preceptora",
+    "data": "2026-04-17",
+    "cargaHoraria": 0,
+    "observacao": "Saída da Mari"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-17",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "AFASTAMENTO",
+    "categoria": "Preceptora",
+    "data": "2026-04-18",
+    "cargaHoraria": 0,
+    "observacao": "Saída da Mari"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-18",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-04-18",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-04-18",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-04-18",
+    "cargaHoraria": 2,
+    "observacao": "Plantão - Tiradentes (conferir: ela está de férias de 06/04 a 20/04)",
+    "feriadao": "tiradentes"
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-04-18",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-04-18",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-04-18",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "AFASTAMENTO",
+    "categoria": "Preceptora",
+    "data": "2026-04-19",
+    "cargaHoraria": 0,
+    "observacao": "Saída da Mari"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-19",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana",
+    "tipo": "AFASTAMENTO",
+    "categoria": "Preceptora",
+    "data": "2026-04-20",
+    "cargaHoraria": 0,
+    "observacao": "Saída da Mari"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-20",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-22",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-23",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-24",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-25",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-04-25",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-04-25",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-04-25",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-04-25",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-04-25",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-04-25",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-26",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-27",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-28",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-29",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-04-30",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-05-02",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-05-02",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-05-02",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-05-02",
+    "cargaHoraria": 2,
+    "observacao": "Plantão - Dia do Trabalho",
+    "feriadao": "trabalho"
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-05-02",
+    "cargaHoraria": 2,
+    "observacao": "Plantão - Dia do Trabalho",
+    "feriadao": "trabalho"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-05-09",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-05-09",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-05-09",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-05-09",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-05-09",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-05-09",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-05-16",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-05-16",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-05-16",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-05-16",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-05-16",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-05-16",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-05-16",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-05-23",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-05-23",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-05-23",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-05-23",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-05-23",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-05-23",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-05-30",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-05-30",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-05-30",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-05-30",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-05-30",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-05-30",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FOLGA",
+    "categoria": "Residente",
+    "data": "2026-06-06",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-06-06",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-06-06",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-06-06",
+    "cargaHoraria": 2,
+    "observacao": "Plantão - Corpus Christi",
+    "feriadao": "corpus"
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-06-06",
+    "cargaHoraria": 2,
+    "observacao": "Plantão - Corpus Christi",
+    "feriadao": "corpus"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-06-06",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-06-06",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-06-13",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-06-13",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-06-13",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-06-13",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-06-13",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-06-13",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-16",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-17",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-18",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-19",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-20",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FOLGA",
+    "categoria": "Residente",
+    "data": "2026-06-20",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-06-20",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-06-20",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-06-20",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-06-20",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-06-20",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-06-20",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-21",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-22",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-23",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-24",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-25",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-26",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-27",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-06-27",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-06-27",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-06-27",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-06-27",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-06-27",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-06-27",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-06-27",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-28",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-06-29",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-07-04",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-07-04",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-07-04",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-07-04",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-07-04",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-07-04",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-07-04",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-06",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-07",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-08",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-09",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-10",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-11",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-07-11",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-07-11",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-07-11",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-07-11",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-07-11",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-07-11",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-07-11",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-12",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-13",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-14",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-15",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-16",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-17",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-07-18",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-07-18",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-07-18",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-07-18",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-07-18",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-07-20",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-07-20",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-20",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-07-21",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-07-21",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-21",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-07-22",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-07-22",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-22",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-07-23",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-07-23",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-23",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-07-24",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-07-24",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-24",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-07-25",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-25",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-07-25",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-07-25",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-07-25",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-07-25",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-07-25",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-07-25",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-07-26",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-26",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-07-27",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-27",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-07-28",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-28",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-07-29",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-29",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-07-30",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-30",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2026-07-31",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2026-07-31",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-08-01",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-08-01",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-08-01",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-08-01",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-08-01",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-08-01",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-08-08",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-08-08",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-08-08",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-08-08",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-08-08",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-08-08",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-08-08",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-08-15",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-08-15",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-08-15",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-08-15",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-08-15",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-08-15",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "AFASTAMENTO",
+    "categoria": "R1",
+    "data": "2026-08-17",
+    "cargaHoraria": 0,
+    "observacao": "Afastamento Evento ENRS 16ª edição (João Pessoa)"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "AFASTAMENTO",
+    "categoria": "R1",
+    "data": "2026-08-18",
+    "cargaHoraria": 0,
+    "observacao": "Afastamento Evento ENRS 16ª edição (João Pessoa)"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "AFASTAMENTO",
+    "categoria": "R1",
+    "data": "2026-08-19",
+    "cargaHoraria": 0,
+    "observacao": "Afastamento Evento ENRS 16ª edição (João Pessoa)"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "AFASTAMENTO",
+    "categoria": "R1",
+    "data": "2026-08-20",
+    "cargaHoraria": 0,
+    "observacao": "Afastamento Evento ENRS 16ª edição (João Pessoa)"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "AFASTAMENTO",
+    "categoria": "R1",
+    "data": "2026-08-21",
+    "cargaHoraria": 0,
+    "observacao": "Afastamento Evento ENRS 16ª edição (João Pessoa)"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-08-22",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-08-22",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-08-22",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-08-22",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-08-22",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-08-22",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-08-29",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-08-29",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-08-29",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-08-29",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-08-29",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-08-29",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "AFASTAMENTO",
+    "categoria": "Residente",
+    "data": "2026-09-01",
+    "cargaHoraria": 0,
+    "observacao": "Estágio Optativo"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "AFASTAMENTO",
+    "categoria": "Residente",
+    "data": "2026-09-02",
+    "cargaHoraria": 0,
+    "observacao": "Estágio Optativo"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "AFASTAMENTO",
+    "categoria": "Residente",
+    "data": "2026-09-03",
+    "cargaHoraria": 0,
+    "observacao": "Estágio Optativo"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "AFASTAMENTO",
+    "categoria": "Residente",
+    "data": "2026-09-04",
+    "cargaHoraria": 0,
+    "observacao": "Estágio Optativo"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "AFASTAMENTO",
+    "categoria": "Residente",
+    "data": "2026-09-05",
+    "cargaHoraria": 0,
+    "observacao": "Estágio Optativo"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-09-05",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-09-05",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-09-05",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-09-05",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-09-05",
+    "cargaHoraria": 2,
+    "observacao": "Plantão - Independência do Brasil",
+    "feriadao": "independencia"
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-09-05",
+    "cargaHoraria": 2,
+    "observacao": "Plantão - Independência do Brasil",
+    "feriadao": "independencia"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-09-05",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "AFASTAMENTO",
+    "categoria": "Residente",
+    "data": "2026-09-06",
+    "cargaHoraria": 0,
+    "observacao": "Estágio Optativo"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-09-08",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-09-09",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-09-10",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-09-11",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-09-12",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-09-12",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-09-12",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-09-12",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-09-12",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-09-12",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-09-12",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-09-13",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-09-14",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-09-15",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-09-16",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-09-17",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-09-18",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-09-19",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-09-19",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-09-19",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-09-19",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-09-19",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-09-19",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-09-19",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-09-19",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "",
+    "tipo": "FERIADO",
     "categoria": "Geral",
+    "data": "2026-09-20",
+    "cargaHoraria": 0,
+    "observacao": "Dia do Gaúcho (Revolução Farroupilha)"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-09-26",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-09-26",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-09-26",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-09-26",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-09-26",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-09-26",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-03",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-03",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-03",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-10-03",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-10-03",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-10-03",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-10-03",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-10",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-10",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-10",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-10-10",
+    "cargaHoraria": 2,
+    "observacao": "Plantão - Nossa Sr.a Aparecida - Padroeira do Brasil",
+    "feriadao": "aparecida"
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-10-10",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-10-10",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-17",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-17",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-17",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-10-17",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-10-17",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-10-17",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-10-17",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-24",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-24",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-24",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-10-24",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-10-24",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-10-24",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-10-24",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-10-24",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-10-26",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-10-27",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-10-28",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-10-29",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-10-30",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-31",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-31",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-10-31",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-10-31",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
     "data": "2026-10-31",
     "cargaHoraria": 2,
-    "observacao": "Plantão - Finados"
+    "observacao": "Plantão - Finados",
+    "feriadao": "finados"
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-10-31",
+    "cargaHoraria": 2,
+    "observacao": "Plantão - Finados",
+    "feriadao": "finados"
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-10-31",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "AFASTAMENTO",
+    "categoria": "Residente",
+    "data": "2026-11-06",
+    "cargaHoraria": 0,
+    "observacao": "curso USG"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "AFASTAMENTO",
+    "categoria": "Residente",
+    "data": "2026-11-07",
+    "cargaHoraria": 0,
+    "observacao": "curso USG"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-11-07",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-11-07",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-11-07",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-11-07",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-11-07",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-11-07",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-11-07",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-11-14",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-11-14",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-11-14",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-11-14",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-11-14",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-11-14",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-11-14",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-11-14",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-11-21",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-11-21",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-11-21",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-11-21",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-11-21",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-11-21",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-11-21",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-11-21",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-11-23",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-11-23",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-11-24",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-11-24",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-11-25",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-11-25",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-11-26",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-11-26",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-11-27",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-11-27",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-11-28",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-11-28",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-11-28",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-11-28",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-11-28",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-11-28",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-11-28",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-11-28",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-11-28",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-11-29",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-11-30",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-12-01",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-12-02",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-12-03",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-12-04",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-12-05",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-12-05",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-12-05",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FOLGA",
+    "categoria": "R1",
+    "data": "2026-12-05",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-12-05",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-12-05",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-12-05",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-12-05",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-12-06",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-12-07",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-12-08",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-12-09",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-12-10",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-12-11",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FERIAS",
+    "categoria": "Preceptora",
+    "data": "2026-12-12",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-12-12",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-12-12",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-12-12",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-12-12",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-12-12",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-12-12",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-12-19",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-12-19",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-12-19",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-12-19",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-12-19",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-12-19",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2026-12-19",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Fabiane",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-12-26",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Júlia",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-12-26",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Lorenza",
+    "tipo": "FOLGA",
+    "categoria": "Preceptora",
+    "data": "2026-12-26",
+    "cargaHoraria": 0,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Gabriela",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-12-26",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Luísa",
+    "tipo": "PLANTAO",
+    "categoria": "Preceptora",
+    "data": "2026-12-26",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-12-26",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2026-12-26",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2027-01-02",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2027-01-09",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2027-01-09",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2027-01-16",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2027-01-16",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-01-21",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-01-22",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-01-22",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-01-23",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-01-23",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-01-24",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-01-24",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-01-25",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-01-25",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-01-26",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-01-26",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-01-27",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-01-27",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-01-28",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-01-28",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-01-29",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-01-29",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-01-30",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-01-30",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2027-01-30",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-01-31",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-01-31",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-01",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-02-01",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "",
+    "tipo": "FERIADO",
+    "categoria": "Geral",
+    "data": "2027-02-02",
+    "cargaHoraria": 0,
+    "observacao": "Nossa Senhora dos Navegantes (Porto Alegre)"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-02",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-02-02",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-03",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-02-03",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-04",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-02-04",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "FERIAS",
+    "categoria": "R1",
+    "data": "2027-02-05",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2027-02-06",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-11",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-12",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-13",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Bruna",
+    "tipo": "PLANTAO",
+    "categoria": "Residente",
+    "data": "2027-02-13",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2027-02-13",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-14",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-15",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-16",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-17",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-18",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-19",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-20",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Mariana (Residente)",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2027-02-20",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-21",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-22",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-23",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-24",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-25",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Marvin",
+    "tipo": "FERIAS",
+    "categoria": "Residente",
+    "data": "2027-02-26",
+    "cargaHoraria": 0,
+    "observacao": "Férias"
+  },
+  {
+    "pessoa": "Roberta",
+    "tipo": "PLANTAO",
+    "categoria": "R1",
+    "data": "2027-02-27",
+    "cargaHoraria": 2,
+    "observacao": ""
+  },
+  {
+    "pessoa": "",
+    "tipo": "FERIADO",
+    "categoria": "Geral",
+    "data": "2027-09-20",
+    "cargaHoraria": 0,
+    "observacao": "Dia do Gaúcho (Revolução Farroupilha)"
   }
 ]
