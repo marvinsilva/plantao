@@ -678,6 +678,8 @@ function configurarEventosUI() {
     try { localStorage.setItem('tema', escuro ? 'dark' : 'light'); } catch (e) {}
   });
 
+  configurarFeedback();
+
   document.getElementById('btnAmpliar').addEventListener('click', (ev) => {
     const amplo = document.getElementById('visaoCalendario').classList.toggle('modo-amplo');
     ev.currentTarget.textContent = amplo ? '⇱ Mostrar filtros' : '⛶ Ampliar calendário';
@@ -761,6 +763,108 @@ function configurarEventosUI() {
   });
 
   document.getElementById('btnImportarDados').addEventListener('click', importarDadosIniciais);
+}
+
+// ================= Sugestões e bugs (coleção "feedback") =================
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const TIPOS_FB = { IDEIA: '💡 Ideia', BUG: '🐞 Bug', AVISO: '📢 Aviso/dúvida' };
+const STATUS_FB = { novo: 'Novo', andamento: 'Em andamento', feito: 'Resolvido', descartado: 'Descartado' };
+let feedbacks = [];
+
+function abrirFeedback() {
+  document.getElementById('formFeedback').reset();
+  try { document.getElementById('fbNome').value = localStorage.getItem('minhaPessoa') || ''; } catch (e) {}
+  document.getElementById('modalFeedback').classList.remove('hidden');
+  document.getElementById('fbMensagem').focus();
+}
+
+async function enviarFeedback(e) {
+  e.preventDefault();
+  const msg = document.getElementById('fbMensagem').value.trim();
+  if (msg.length < 5) return alert('Escreva um pouco mais para eu entender.');
+  let ultimo = 0;
+  try { ultimo = Number(localStorage.getItem('fbUltimo')) || 0; } catch (err) {}
+  if (Date.now() - ultimo < 30000) return alert('Aguarde alguns segundos antes de enviar outra mensagem.');
+  const btn = document.getElementById('fbEnviar');
+  btn.disabled = true;
+  try {
+    await addDoc(collection(db, 'feedback'), {
+      tipo: document.getElementById('fbTipo').value,
+      mensagem: msg.slice(0, 1000),
+      nome: document.getElementById('fbNome').value.trim().slice(0, 60),
+      status: 'novo',
+      criadoEm: new Date().toISOString(),
+      tela: `${innerWidth}x${innerHeight}`,
+      tema: document.documentElement.classList.contains('dark') ? 'escuro' : 'claro',
+      navegador: navigator.userAgent.slice(0, 140)
+    });
+    try { localStorage.setItem('fbUltimo', String(Date.now())); } catch (err) {}
+    document.getElementById('modalFeedback').classList.add('hidden');
+    mostrarToast('✅ Obrigado! Sua mensagem foi enviada.');
+  } catch (err) {
+    alert('Não foi possível enviar agora: ' + err.message);
+  } finally { btn.disabled = false; }
+}
+
+async function carregarFeedbacks() {
+  const snap = await getDocs(collection(db, 'feedback'));
+  feedbacks = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => String(b.criadoEm).localeCompare(String(a.criadoEm)));
+  const n = feedbacks.filter(f => (f.status || 'novo') === 'novo').length;
+  document.getElementById('btnVerFeedback').textContent = `📬 Sugestões${n ? ` (${n})` : ''}`;
+}
+
+function feedbacksFiltrados() {
+  const f = document.getElementById('fbFiltroStatus').value;
+  return feedbacks.filter(x => f === 'TODOS' || (x.status || 'novo') === f);
+}
+
+function renderListaFeedback() {
+  const lista = feedbacksFiltrados();
+  document.getElementById('fbLista').innerHTML = lista.length ? lista.map(f => `
+    <div class="border border-slate-200 rounded p-3 text-sm space-y-2" data-id="${esc(f.id)}">
+      <div class="flex flex-wrap justify-between gap-2 text-xs text-slate-500">
+        <span><b class="text-slate-700">${TIPOS_FB[f.tipo] || esc(f.tipo)}</b> · ${esc(f.nome) || 'anônimo'} · ${new Date(f.criadoEm).toLocaleString('pt-BR')}</span>
+        <span>${esc(f.tela)} · ${esc(f.tema)}</span>
+      </div>
+      <p class="whitespace-pre-wrap">${esc(f.mensagem)}</p>
+      <div class="flex justify-between items-center">
+        <select class="fb-status border border-slate-300 rounded px-2 py-1 text-xs bg-white">
+          ${Object.entries(STATUS_FB).map(([k, v]) => `<option value="${k}" ${(f.status || 'novo') === k ? 'selected' : ''}>${v}</option>`).join('')}
+        </select>
+        <button type="button" class="fb-del text-xs text-red-500 hover:text-red-700 font-semibold">Excluir</button>
+      </div>
+    </div>`).join('') : '<p class="text-slate-400 italic text-sm">Nenhuma mensagem aqui.</p>';
+}
+
+async function abrirListaFeedback() {
+  try { await carregarFeedbacks(); } catch (e) { return alert('Não foi possível ler as sugestões (confira as regras do Firestore): ' + e.message); }
+  renderListaFeedback();
+  document.getElementById('modalFeedbackLista').classList.remove('hidden');
+}
+
+function configurarFeedback() {
+  document.getElementById('btnFeedback').addEventListener('click', abrirFeedback);
+  document.getElementById('formFeedback').addEventListener('submit', enviarFeedback);
+  document.querySelectorAll('.fb-fechar').forEach(b => b.addEventListener('click', () => b.closest('[data-modal]').classList.add('hidden')));
+  document.getElementById('btnVerFeedback').addEventListener('click', abrirListaFeedback);
+  document.getElementById('fbFiltroStatus').addEventListener('change', renderListaFeedback);
+  document.getElementById('fbCopiar').addEventListener('click', async () => {
+    const txt = feedbacksFiltrados().map(f => `[${TIPOS_FB[f.tipo] || f.tipo} | ${STATUS_FB[f.status || 'novo']} | ${f.nome || 'anônimo'} | ${new Date(f.criadoEm).toLocaleDateString('pt-BR')} | ${f.tela}/${f.tema}]\n${f.mensagem}`).join('\n\n');
+    try { await navigator.clipboard.writeText(txt); mostrarToast('📋 Copiado.'); } catch (e) { alert('Não consegui copiar.'); }
+  });
+  document.getElementById('fbLista').addEventListener('change', async (ev) => {
+    if (!ev.target.classList.contains('fb-status')) return;
+    const id = ev.target.closest('[data-id]').dataset.id;
+    try { await updateDoc(doc(db, 'feedback', id), { status: ev.target.value }); const f = feedbacks.find(x => x.id === id); if (f) f.status = ev.target.value; carregarFeedbacks(); }
+    catch (e) { alert('Erro ao atualizar: ' + e.message); }
+  });
+  document.getElementById('fbLista').addEventListener('click', async (ev) => {
+    if (!ev.target.classList.contains('fb-del') || !confirm('Excluir esta mensagem?')) return;
+    const id = ev.target.closest('[data-id]').dataset.id;
+    try { await deleteDoc(doc(db, 'feedback', id)); feedbacks = feedbacks.filter(x => x.id !== id); renderListaFeedback(); carregarFeedbacks(); }
+    catch (e) { alert('Erro ao excluir: ' + e.message); }
+  });
+  if (location.search.includes('admin')) carregarFeedbacks().catch(() => {});
 }
 
 async function emLotes(itens, tamanho, acao) {
